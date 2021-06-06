@@ -67,20 +67,77 @@
   </div>
 <div class="row">
     <div class="col-md-12">
-        <div class="card ">
+        <div class="card staff-static">
             <div class="card-header ">
-                <h4 class="card-title" align="center">{{trans('lang.detail_stats')}}</h4>
-                <div class="form-group" align="center">
-                    <label>{{trans('lang.month')}}</label>
-                    <select class="form-control" id="month">
-                        @for($i=1; $i <= 12; $i++)
-                            <option value="{{$i}}">{{$i}}</option>
-                        @endfor
-                    </select>
-                    <input class="yearselect form-control" id="year">
-                    <label>{{trans('lang.year')}}</label>
-                    <button type="button" class="btn btn-light" style="display:block;margin: 3px auto" id="viewstats">{{trans('lang.view_stats')}}</button>
-                </div>
+                <h4 class="card-title" align="center">{{trans('lang.detail_staffs')}}</h4>
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>TOTAL</th>
+                            <th>NEW STAFF</th>
+                            <th>RESIGN PENDING</th>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>4</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-body " id="body">
+
+            </div>
+            <div class="card-footer ">
+
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="card staff-static">
+            <div class="card-header ">
+                <h4 class="card-title" align="center">{{trans('lang.pending_timesheets')}}</h4>
+                <table>
+                    <tbody>
+                    <tr>
+                        <th>ID</th>
+                        <th>DETAILS</th>
+                        <th>ACTION</th>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>4</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-body " id="body">
+
+            </div>
+            <div class="card-footer ">
+
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="card staff-static">
+            <div class="card-header ">
+                <h4 class="card-title" align="center">{{trans('lang.pending_paysheets')}}</h4>
+                <table>
+                    <tbody>
+                    <tr>
+                        <th>STAFF ID</th>
+                        <th>STAFF DETAIL</th>
+                        <th>MISSING PAYSHEETS</th>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>4</td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
             <div class="card-body " id="body">
 

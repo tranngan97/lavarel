@@ -1,7 +1,7 @@
 @extends('Admin.master')
 
 @section('title')
-  {{trans('lang.sale_add_manage')}}
+  {{trans('lang.staff_add_manage')}}
 @endsection
 
 @section('css')
@@ -13,10 +13,10 @@
 	<div class="col-md-12">
 	    <div class="card">
 	        <div class="card-header">
-	            <h4 class="card-title">{{trans('lang.sale_add')}}</h4>
+	            <h4 class="card-title">{{trans('lang.staff_add')}}</h4>
 	        </div>
 	        <div class="card-body">
-	            <form method="post" action="addSaleProcess" id="addForm">
+	            <form method="post" action="addStaffProcess" id="addForm">
 	            	@csrf
 	            	<div class="row">
 	            		<input type="file" name="avatar" class="dropify" data-height="250px" data-default-file="{{asset('images/user.png')}}" data-show-remove="false">
@@ -38,17 +38,19 @@
 	                <div class="row">
 	                    <div class="col-md-6 pr-1">
 	                        <div class="form-group">
-	                            <label>{{trans('lang.first_name')}}</label>
-	                            <input type="text" class="form-control" name="txtFirstName" placeholder="{{trans('lang.first_name')}}" required>
-	                        </div>
-	                    </div>
-	                    <div class="col-md-6 pl-1">
-	                        <div class="form-group">
-	                            <label>{{trans('lang.last_name')}}</label>
-	                            <input type="text" class="form-control" name="txtLastName"  placeholder="{{trans('lang.last_name')}}" required>
+	                            <label>{{trans('lang.name')}}</label>
+	                            <input type="text" class="form-control" name="txtName" placeholder="{{trans('lang.name')}}" required>
 	                        </div>
 	                    </div>
 	                </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>{{trans('lang.dob')}}</label>
+                                <input type="text" class="form-control" name="txtDob"  placeholder="{{trans('lang.dob')}}" required>
+                            </div>
+                        </div>
+                    </div>
 	                <div class="row">
 	                    <div class="col-md-12">
 	                        <div class="form-group">
@@ -57,7 +59,52 @@
 	                        </div>
 	                    </div>
 	                </div>
-	                <button type="submit" class="btn btn-info btn-fill pull-right">{{trans('lang.add_sale')}}</button>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>{{trans('lang.department')}}</label>
+                                <select class="form-control" name="txtDepartment" required>
+                                    <option value="0">Select Department</option>
+                                    <option value="1">Department 1</option>
+                                    <option value="2">Department 2</option>
+                                    <option value="3">Department 3</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>{{trans('lang.social_ins')}}</label>
+                                <input type="text" class="form-control" name="txtSocialIns"  placeholder="{{trans('lang.social_ins')}}" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>{{trans('lang.health_ins')}}</label>
+                                <input type="text" class="form-control" name="txtHealthIns"  placeholder="{{trans('lang.health_ins')}}" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>{{trans('lang.gross')}}</label>
+                                <input type="text" class="form-control" name="txtGross"  placeholder="{{trans('lang.gross')}}" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>{{trans('lang.bank')}}</label>
+                                <input type="text" class="form-control" name="txtBank"  placeholder="{{trans('lang.bank')}}" required>
+                            </div>
+                        </div>
+                    </div>
+	                <button type="submit" class="btn btn-info btn-fill pull-right">{{trans('lang.add_staff')}}</button>
 	                <div class="clearfix"></div>
 	            </form>
 	        </div>
@@ -74,8 +121,8 @@
 @section('js2')
 	<script>
 		$(document).ready(function(){
-			jQuery.validator.addMethod("noSpace", function(value, element) { 
-	          return value.indexOf(" ") < 0 && value != ""; 
+			jQuery.validator.addMethod("noSpace", function(value, element) {
+	          return value.indexOf(" ") < 0 && value != "";
 	         });
 			$('.dropify').dropify();
 			$('#addForm').validate({

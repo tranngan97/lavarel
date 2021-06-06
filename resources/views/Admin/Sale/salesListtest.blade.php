@@ -1,7 +1,7 @@
 @extends('Admin.master')
 
 @section('title')
-  {{trans('lang.sale_manage')}}
+  {{trans('lang.staff_manage')}}
 @endsection
 
 @section('css')
@@ -21,7 +21,7 @@
     #card-master * {
       animation: loadcontent 0.6s;
     }
-    
+
     @keyframes load {
       0% {
         height: 0%;
@@ -45,31 +45,41 @@
   <div class="row">
     <div class="col-md-12">
       <div class="card" id="card-master">
-            <div class="card-header ">
-                <h4 class="card-title">{{trans('lang.sale_list')}}</h4>
-                <p class="card-category">{{trans('lang.sale_cate')}}</p>
+            <div class="card-header">
+                <h4 class="card-title">{{trans('lang.staff_list')}}</h4>
+                <p class="card-category">{{trans('lang.staff_cate')}}</p>
+                <button class="add-staff" style="position: absolute;margin-left: 83%;margin-top: -3%;border-radius: 50px;background-color: #00b9fffa;height: 35px;">
+                    <a href="{{route('addStaff')}}" style="color: white !important;">New Staff</a>
+                </button>
             </div>
             <div class="card-body table-full-width table-responsive">
                 <table id="mytable" align="center" class="table table-hover">
                     <thead>
                       <tr>
-                        <th></th>
-                        <th>{{trans('lang.sale_name')}}</th>
-                        <th>EMAIL</th>
-                        <th>{{trans('lang.sale_phone')}}</th>
-                        <th>{{trans('lang.sale_student')}}</th>
-                        <th></th>
+                          <th></th>
+                          <th>{{trans('lang.staff_id')}}</th>
+                          <th>EMAIL</th>
+                          <th>{{trans('lang.staff_name')}}</th>
+                          <th>{{trans('lang.staff_phone')}}</th>
+                          <th>Actions</th>
                       </tr>
                     </thead>
                     <tbody>
-                        @foreach($sales as $sale)
+                        @foreach($staffs as $staff)
                         <tr>
-                            <td><img src="{{asset($sale->sale_avatar)}}" style="width: 64px;height: 64px;border-radius: 50%"></td>
-                            <td>{{$sale->sale_name}}</td>
-                            <td>{{$sale->sale_email}}</td>
-                            <td>{{$sale->sale_phone}}</td>
-                            <td>{{$sale->students}}</td>
-                            <td></td>
+                            <td><img src="{{asset($staff->staff_avatar)}}" style="width: 64px;height: 64px;border-radius: 50%"></td>
+                            <td>{{$staff->staff_id}}</td>
+                            <td>{{$staff->staff_email}}</td>
+                            <td>{{$staff->staff_name}}</td>
+                            <td>{{$staff->staff_phone}}</td>
+                            <td>
+                                <button class="add-staff" style="border-radius: 50px;background-color: #00b9fffa;">
+                                    <a href="{{route('viewStaff', ['id' => $staff->staff_id])}}" style="color: white !important;">View</a>
+                                </button>
+                                <button class="delete-staff" style="border-radius: 50px;background-color: #ff1800fa;">
+                                    <a href="{{route('deleteStaff', ['id' => $staff->staff_id])}}" style="color: white !important;">Delete</a>
+                                </button>
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -77,19 +87,11 @@
             </div>
         </div>
     </div>
-  </div> 
-
-
-  <div class="fixed-action-btn">
-    <a href="{{route('addSale')}}" class="btn-floating"><i class="nc-icon nc-simple-add"></i></a>
   </div>
-        
 @endsection
 
 @section('js2')
   <script type="text/javascript">
-  $( "table thead tr th:first-child" ).addClass('disabled-sorting');
-     $("table tbody tr td:first-child").addClass('text-center');
   $(document).ready(function(){
     $('#mytable').DataTable({
       order: [4, 'desc'],
@@ -125,7 +127,7 @@
         } ],
     });
   });
-         
+
   </script>
 @endsection
 

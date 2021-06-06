@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\interestModel;
-use App\courseModel;
+use App\paysheetModel;
 use App\scheduleModel;
 use App\classModel;
 use App\class_detailModel;
@@ -22,7 +22,7 @@ class interestController extends Controller
     		$interest = explode('|',$interest);
     		$course_id = $interest[0];
     		$schedule_id = $interest[1];
-    		$course_name = courseModel::where('course_id',$course_id)->first();
+    		$course_name = paysheetModel::where('course_id',$course_id)->first();
     		$schedule_name = scheduleModel::where('schedule_id',$schedule_id)->first();
     		$class_name = $course_name->course_name . ' ' . $schedule_name->schedule_name;
     		$interests[$i]->count = $count;
@@ -35,7 +35,7 @@ class interestController extends Controller
         $id_explode = explode('|',$id);
         $course_id = $id_explode[0];
         $schedule_id = $id_explode[1];
-        $course_name = courseModel::where('course_id',$course_id)->first();
+        $course_name = paysheetModel::where('course_id',$course_id)->first();
         $course_name = $course_name->course_name;
         $schedule_name = scheduleModel::where('schedule_id',$schedule_id)->first();
         $schedule_name = $schedule_name->schedule_name;
@@ -74,7 +74,7 @@ class interestController extends Controller
         $interest_ex = explode('|',$interest_ex);
         $course_id = $interest_ex[0];
         $schedule_id = $interest_ex[1];
-        $course_name = courseModel::where('course_id',$course_id)->first();
+        $course_name = paysheetModel::where('course_id',$course_id)->first();
         $schedule_name = scheduleModel::where('schedule_id',$schedule_id)->first();
         $class_name = $course_name->course_name . ' ' . $schedule_name->schedule_name;
         $interest->class_name = $class_name;

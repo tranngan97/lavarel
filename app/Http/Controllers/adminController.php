@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\adminModel;
 use App\classModel;
-use App\saleModel;
+use App\staffModel;
 use App\studentModel;
 //use Session;
 class adminController extends Controller

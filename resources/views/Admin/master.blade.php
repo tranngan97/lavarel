@@ -47,43 +47,24 @@
                             <p>Dashboard</p>
                         </a>
                     </li>
-                    <li class="nav-item  @if(Request::is('Admin/Sales/*')) active @endif">
-                        <a class="nav-link" href="{{route('salesList')}}">
+                    <li class="nav-item  @if(Request::is('Admin/Staff/*')) active @endif">
+                        <a class="nav-link" href="{{route('staffList')}}">
                             <i class="nc-icon nc-circle-09"></i>
                             <p>{{trans('lang.manage_staffs')}}</p>
                         </a>
                     </li>
-                    <li class="nav-item  @if(Request::is('Admin/Majors/*')) active @endif">
-                        <a class="nav-link" href="{{route('majorsList')}}">
+                    <li class="nav-item  @if(Request::is('Admin/TimeSheet/*')) active @endif">
+                        <a class="nav-link" href="{{route('timesheetList')}}">
                             <i class="nc-icon nc-single-copy-04"></i>
-                            <p>{{trans('lang.manage_majors')}}</p>
+                            <p>{{trans('lang.manage_timesheet')}}</p>
                         </a>
                     </li>
-					<li class="nav-item  @if(Request::is('Admin/Courses/*')) active @endif">
-                        <a class="nav-link" href="{{route('coursesList')}}">
+					<li class="nav-item  @if(Request::is('Admin/Paysheet/*')) active @endif">
+                        <a class="nav-link" href="{{route('paysheetList')}}">
                             <i class="nc-icon nc-notes"></i>
-                            <p>{{trans('lang.manage_courses')}}</p>
+                            <p>{{trans('lang.paysheet_manage')}}</p>
                         </a>
                     </li>
-					<li class="nav-item  @if(Request::is('Admin/Schedules/*')) active @endif">
-                        <a class="nav-link" href="{{route('schedulesList')}}">
-                            <i class="nc-icon nc-watch-time"></i>
-                            <p>{{trans('lang.manage_schedules')}}</p>
-                        </a>
-                    </li>
-					<li class="nav-item  @if(Request::is('Admin/Classes/*')) active @endif">
-                        <a class="nav-link" href="{{route('classesList')}}">
-                            <i class="nc-icon nc-backpack"></i>
-                            <p>{{trans('lang.manage_classes')}}</p>
-                        </a>
-                    </li>
-                    <li class="nav-item  @if(Request::is('Admin/Interests/*')) active @endif">
-                        <a class="nav-link" href="{{route('interestsList')}}">
-                            <i class="nc-icon nc-circle-09"></i>
-                            <p>{{trans('lang.manage_interests')}}</p>
-                        </a>
-                    </li>
-                </ul>
             </div>
         </div>
         <div class="main-panel">

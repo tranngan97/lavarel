@@ -1,9 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\courseModel;
+use App\paysheetModel;
 use App\scheduleModel;
-use App\majorModel;
+use App\timesheetModel;
 use App\classModel;
 use App\class_detailModel;
 use App\studentModel;
@@ -15,7 +15,7 @@ class AjaxController extends Controller
     //
     public function getCourses(Request $request)
     {
-        $data = courseModel::select('course_id','course_name')->where('major_id',$request->id)->get();
+        $data = paysheetModel::select('course_id','course_name')->where('major_id',$request->id)->get();
         return response()->json($data);
     }
     public function getSchedules(Request $request)
@@ -25,7 +25,7 @@ class AjaxController extends Controller
     }
     public function getCourses_classList(Request $request)
     {
-        $data = courseModel::select('course_id','course_name')->where('major_id',$request->id)->get();
+        $data = paysheetModel::select('course_id','course_name')->where('major_id',$request->id)->get();
         for($i=0 ; $i < count($data) ; $i++)
         {
             $count = classModel::where('course_id',$data[$i]->course_id)->count();
@@ -73,7 +73,7 @@ class AjaxController extends Controller
     // }
     public function getMajor(Request $request)
     {
-        $data = majorModel::join('tblcourses','tblmajors.major_id','=','tblcourses.major_id')->where('course_id',$request->course_id)->first();
+        $data = timesheetModel::join('tblcourses','tblmajors.major_id','=','tblcourses.major_id')->where('course_id',$request->course_id)->first();
         return response()->json($data);
     }
     public function CheckStudent(Request $request)
@@ -259,13 +259,13 @@ class AjaxController extends Controller
     }
     public function CheckDeleteMajor(Request $request)
     {
-        $data = courseModel::where('major_id',$request->id)->count();
+        $data = paysheetModel::where('major_id',$request->id)->count();
         return response()->json($data);
     }
     public function SearchCourse(Request $request)
     {
         $output = '';
-        $courses = courseModel::where('course_name','like','%' . $request->key . '%')->get();
+        $courses = paysheetModel::where('course_name','like','%' . $request->key . '%')->get();
         for($i = 0 ; $i < count($courses) ; $i++)
         {
             $open = classModel::where('course_id',$courses[$i]->course_id)->where('check',1)->count();
@@ -319,7 +319,7 @@ class AjaxController extends Controller
         if(count($classes) > 0)
         {
             $course_id = $classes[0]->course_id;
-            $id = majorModel::join('tblcourses','tblmajors.major_id','=','tblcourses.major_id')->where('course_id',$course_id)->first();
+            $id = timesheetModel::join('tblcourses','tblmajors.major_id','=','tblcourses.major_id')->where('course_id',$course_id)->first();
             $id = $id->major_id;
             $output .= '<div class="row">';
             foreach($classes as $class)

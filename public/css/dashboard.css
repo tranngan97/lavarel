@@ -3547,12 +3547,6 @@ fieldset[disabled] .form-control {
     padding-left: 15px;
 }
 
-.card .table tbody td:last-child,
-.card .table thead th:last-child {
-    padding-right: 15px;
-    display: block;
-}
-
 .table-bigboy>thead>tr>th {
     font-size: 0.875rem;
     text-transform: uppercase;
@@ -13631,4 +13625,17 @@ select.selectpicker {
 .slider-danger .noUi-connect,
 .slider-danger.noUi-connect {
     background-color: #FB404B;
+}
+
+.staff-static table {
+    border: 1px solid black;
+    width: 100%;
+}
+.staff-static table th{
+    border: 1px solid black;
+    text-align: center;
+}
+.staff-static table td{
+    border: 1px solid black;
+    text-align: center;
 }
