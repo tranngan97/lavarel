@@ -12,10 +12,10 @@
   <title>Admin Login</title>
 
 	  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <!-- CORE CSS--> 
+  <!-- CORE CSS-->
   <link href="{{asset('css/login/materialize.min.css')}}" type="text/css" rel="stylesheet" media="screen,projection">
   <link href="{{asset('css/login/loginstyle.min.css')}}" type="text/css" rel="stylesheet" media="screen,projection">
-    <!-- Custome CSS-->    
+    <!-- Custome CSS-->
     <link href="{{asset('css/login/custom.min.css')}}" type="text/css" rel="stylesheet" media="screen,projection">
 
 </head>
@@ -24,7 +24,7 @@
 
   <!-- Start Page Loading -->
   <div id="loader-wrapper">
-      <div id="loader"></div>        
+      <div id="loader"></div>
       <div class="loader-section section-left"></div>
       <div class="loader-section section-right"></div>
   </div>
@@ -41,20 +41,20 @@
       	@csrf
         <div class="row">
           <div class="input-field col s12 center">
-            <img src="{{asset('images/login.png')}}" alt="" class="circle responsive-img valign profile-image-login">
-            <p class="center login-form-text">Bach Khoa IT Academy</p>
+            <img src="{{asset('images/logoBk.png')}}" alt="" class="circle responsive-img valign profile-image-login">
+            <p class="center login-form-text">Dai Hoc Bach Khoa Ha Noi</p>
           </div>
         </div>
         <div class="row margin">
           <div class="input-field col s12">
-            <i class="material-icons prefix">person_outline</i> 
+            <i class="material-icons prefix">person_outline</i>
             <input id="email" name="txtEmail" type="email">
             <label for="email" class="center-align">Email</label>
           </div>
         </div>
         <div class="row margin">
           <div class="input-field col s12">
-            <i class="material-icons prefix">lock_outline</i> 
+            <i class="material-icons prefix">lock_outline</i>
             <input id="password" name="txtPass" type="password">
             <label for="password">Password</label>
           </div>

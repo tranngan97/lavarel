@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <link rel="icon" type="image/png" href="{{asset('images/login.png')}}">
+    <link rel="icon" type="image/png" href="{{asset('images/logoBk.png')}}">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <title>@yield('title')</title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
@@ -34,10 +34,10 @@
             <div class="sidebar-wrapper">
                 <div class="logo">
                     <a href="{{route('Admindashboard')}}" class="simple-text logo-mini">
-                        <img src="{{asset('images/login.png')}}" height="25px" />
+                        <img src="{{asset('images/logoBk.png')}}" height="25px" />
                     </a>
                     <a href="{{route('Admindashboard')}}" class="simple-text logo-normal">
-                        BKACAD
+                        HUST
                     </a>
                 </div>
                 <ul class="nav">
@@ -50,7 +50,7 @@
                     <li class="nav-item  @if(Request::is('Admin/Sales/*')) active @endif">
                         <a class="nav-link" href="{{route('salesList')}}">
                             <i class="nc-icon nc-circle-09"></i>
-                            <p>{{trans('lang.manage_sales')}}</p>
+                            <p>{{trans('lang.manage_staffs')}}</p>
                         </a>
                     </li>
                     <li class="nav-item  @if(Request::is('Admin/Majors/*')) active @endif">

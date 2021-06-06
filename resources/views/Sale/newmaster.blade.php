@@ -8,7 +8,7 @@
     <meta name="description" content="Materialize is a Material Design Admin Template,It's modern, responsive and based on Material Design by Google. ">
     <meta name="keywords" content="materialize, admin template, dashboard template, flat admin template, responsive admin template,">
     <title>@yield('title')</title>
-    <link rel="icon" href="{{asset('images/login.png')}}" sizes="32x32">
+    <link rel="icon" href="{{asset('images/logoBk.png')}}" sizes="32x32">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="{{asset('css/materialize-dashboard.css')}}" type="text/css" rel="stylesheet">
     <link href="{{asset('css/materialize.style.css')}}" type="text/css" rel="stylesheet">
@@ -125,8 +125,8 @@
             <!-- Modal Trigger -->
             <h1 class="logo-wrapper">
               <a href="{{route('dashboard')}}" class="brand-logo darken-1">
-                <img src="{{asset('images/login.png')}}" alt="" width="25vw">
-                <span class="logo-text hide-on-med-and-down">BKACAD</span>
+                <img src="{{asset('images/logoBk.png')}}" alt="" width="25vw">
+                <span class="logo-text hide-on-med-and-down">HUST</span>
               </a>
               <a href="#" class="navbar-toggler">
                 <i class="material-icons">radio_button_checked</i>
@@ -185,7 +185,7 @@
             </ul>
           </ul>
           <a href="#" data-activates="slide-out" class="sidebar-collapse btn-floating btn-medium waves-effect waves-light hide-on-large-only gradient-45deg-light-blue-cyan gradient-shadow">
-            <i class="material-icons">menu</i>  
+            <i class="material-icons">menu</i>
           </a>
         </aside>
         <!-- END LEFT SIDEBAR NAV-->
@@ -250,8 +250,8 @@
         @yield('js2')
       <script>
         $(document).ready(function(){
-          jQuery.validator.addMethod("noSpace", function(value, element) { 
-            return value.indexOf(" ") < 0 && value != ""; 
+          jQuery.validator.addMethod("noSpace", function(value, element) {
+            return value.indexOf(" ") < 0 && value != "";
            });
           $('select').material_select();
           @if(Session::has('message'))
@@ -275,7 +275,7 @@
 
           $('.modal').modal();
           $('#modal1').modal('open');
-          @if(Session::get('locale') =='vn') 
+          @if(Session::get('locale') =='vn')
             $('#flagSelect').addClass('flag-icon-vn');
           @elseif(Session::get('locale')=='en')
             $('#flagSelect').addClass('flag-icon-gb');
