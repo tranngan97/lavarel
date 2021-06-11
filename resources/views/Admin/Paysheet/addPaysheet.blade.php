@@ -1,7 +1,7 @@
 @extends('Admin.master')
 
 @section('title')
-  {{trans('lang.staff_add_manage')}}
+  Add Paysheet
 @endsection
 
 @section('css')
@@ -25,7 +25,7 @@
                                 <select class="form-control" name="txtStaffId" required>
                                     <option value="0">Select Staff</option>
                                     @foreach($staffs as $staff)
-                                        <option value="{{$staff->staff_id}}">{{$staff->staff_id}}</option>
+                                        <option value="{{$staff->staff_id}}">{{$staff->staff_name}}</option>
                                     @endforeach
                                 </select>
 	                        </div>

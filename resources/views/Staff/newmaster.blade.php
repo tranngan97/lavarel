@@ -51,21 +51,6 @@
                   <span class="flag-icon" id="flagSelect"></span>
                 </a>
               </li>
-              <li>
-                <a href="javascript:void(0);" class="waves-effect waves-block waves-light notification-button" data-activates="notifications-dropdown">
-                  <i class="material-icons">notifications_none
-                    <small class="notification-badge">{{count($classes)}}</small>
-                  </i>
-                </a>
-              </li>
-              <li>
-                <a href="javascript:void(0);" class="waves-effect waves-block waves-light profile-button" data-activates="profile-dropdown">
-                  <span class="avatar-status avatar-online">
-                    <img src="{{asset($sale->sale_avatar)}}" alt="avatar">
-                    <i></i>
-                  </span>
-                </a>
-              </li>
             </ul>
             <!-- translation-button -->
             <ul id="translation-dropdown" class="dropdown-content">
@@ -78,22 +63,6 @@
                   <i class="flag-icon flag-icon-vn"></i> {{trans('lang.vn-select')}}</a>
               </li>
             </ul>
-            <!-- notifications-dropdown -->
-            <ul id="notifications-dropdown" class="dropdown-content">
-              <li>
-                <h6>{{trans('lang2.db_newclass')}}
-                  <span class="new badge">{{count($classes)}}</span>
-                </h6>
-              </li>
-              <li class="divider"></li>
-              @foreach($classes as $class)
-                <li>
-                  <a href="{{route('class_detail',['id' => $class->major_id,'id2' => $class->class_id])}}" class="grey-text text-darken-2">
-                    <span class="material-icons icon-bg-circle cyan small tooltipped" data-position="bottom" data-tooltip="@if($class->type == 'Programming') Programming @elseif($class->type == 'Networking') Networking @else Others @endif">@if($class->type == 'Programming') laptop @elseif($class->type == 'Networking') security @else fiber_new @endif</span> {{$class->name}}</a>
-                  <time class="media-meta">{{$class->time}}</time>
-                </li>
-              @endforeach
-            </ul>
             <!-- profile-dropdown -->
             <ul id="profile-dropdown" class="dropdown-content">
               <li>
@@ -105,7 +74,7 @@
                   <i class="material-icons">settings</i> {{trans('lang2.db_changepass')}}</a>
               </li>
               <li>
-                <a href="{{route('saleLogout')}}" class="grey-text text-darken-1">
+                <a href="{{route('staffLogout')}}" class="grey-text text-darken-1">
                   <i class="material-icons">keyboard_tab</i> {{trans('lang.log-out')}}</a>
               </li>
             </ul>
@@ -136,52 +105,36 @@
           <ul id="slide-out" class="side-nav fixed leftside-navigation">
             <li class="no-padding">
               <ul class="collapsible" data-collapsible="accordion">
-                <li class="bold @if(Request::is('Sale/dashboard*')) active @endif">
+                <li class="bold @if(Request::is('Staff/dashboard*')) active @endif">
                   <a href="{{route('dashboard')}}" class="waves-effect waves-cyan">
                     <i class="material-icons">dashboard</i>
                     <span class="nav-text">Dashboard</span>
                   </a>
                 </li>
-                <li class="bold">
-                  <a class="collapsible-header waves-effect waves-cyan @if(Request::is('Sale/Student/*')) active @endif">
-                    <i class="material-icons">person</i>
-                    <span class="nav-text">{{trans('lang2.db_students')}}</span>
-                  </a>
-                  <div class="collapsible-body">
-                    <ul>
-                      <li class="@if(Request::is('Sale/Student/addStudent*')) active @endif">
-                        <a href="{{route('addStudent')}}">
-                          <i class="material-icons">keyboard_arrow_right</i>
-                          <span> {{trans('lang2.db_insertnew')}}</span>
-                        </a>
-                      </li>
-                      <li class="@if(Request::is('Sale/Student/Interest*')) active @endif">
-                        <a href="{{route('studentInterest')}}">
-                          <i class="material-icons">keyboard_arrow_right</i>
-                          <span> {{trans('lang2.db_insertinterest')}}</span>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </li>
-                <li class="bold">
-                  <a class="collapsible-header waves-effect waves-cyan @if(Request::is('Sale/Class/*')) active @endif">
-                    <i class="material-icons">layers</i>
-                    <span class="nav-text">{{trans('lang2.db_classes')}}</span>
-                  </a>
-                  <div class="collapsible-body">
-                    <ul>
-                      @foreach($majors as $major)
-                        <li class="@if(Request::is('Sale/Class/courseList-'.$major->major_id.'*') || Request::is('Sale/Class/'.$major->major_id.'/*')) active @endif">
-                          <a href="{{route('courseList',['id' => $major->major_id])}}">
-                            <i class="material-icons">keyboard_arrow_right</i>
-                            <span> {{$major->major_name}}</span>
-                          </a>
-                        </li>
-                      @endforeach
-                    </ul>
-                  </div>
-                </li>
+                  <li class="bold @if(Request::is('Staff/Profile*')) active @endif">
+                      <a href="{{route('profile')}}" class="waves-effect waves-cyan">
+                          <i class="material-icons">Profile</i>
+                          <span class="nav-text">Profile</span>
+                      </a>
+                  </li>
+                  <li class="bold @if(Request::is('Staff/Timesheet*')) active @endif">
+                      <a href="{{route('timesheet')}}" class="waves-effect waves-cyan">
+                          <i class="material-icons">Timesheet</i>
+                          <span class="nav-text">Timesheet</span>
+                      </a>
+                  </li>
+                  <li class="bold @if(Request::is('Staff/Paysheet*')) active @endif">
+                      <a href="{{route('paysheet')}}" class="waves-effect waves-cyan">
+                          <i class="material-icons">Paysheet</i>
+                          <span class="nav-text">Paysheet</span>
+                      </a>
+                  </li>
+                  <li class="bold @if(Request::is('Staff/Request*')) active @endif">
+                      <a href="{{route('request')}}" class="waves-effect waves-cyan">
+                          <i class="material-icons">Request</i>
+                          <span class="nav-text">Request</span>
+                      </a>
+                  </li>
             </ul>
           </ul>
           <a href="#" data-activates="slide-out" class="sidebar-collapse btn-floating btn-medium waves-effect waves-light hide-on-large-only gradient-45deg-light-blue-cyan gradient-shadow">

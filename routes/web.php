@@ -4,13 +4,12 @@ use Illuminate\Support\Facades\Route;
 use App\staffModel;
 use App\Http\Controllers\adminController;
 use App\Http\Controllers\AjaxController;
-use App\Http\Controllers\classController;
 use App\Http\Controllers\paysheetController;
 use App\Http\Controllers\languageController;
 use App\Http\Controllers\timesheetController;
 use App\Http\Controllers\interestController;
 use App\Http\Controllers\staffController;
-use App\Http\Controllers\scheduleController;
+use App\Http\Controllers\requestController;
 use App\Http\Middleware\checkSessionAdmin;
 use App\Http\Middleware\checkSessionSale;
 /*
@@ -29,8 +28,8 @@ Route::get('/', function () {
 
 Route::get('Admin/login.html',[adminController::class, 'login'])->name('adminLogin');
 Route::post('Admin/loginProcess',[adminController::class, 'loginProcess'])->name('adminLoginProcess');
-Route::get('Sale/login.html',[staffController::class, 'login'])->name('saleLogin');
-Route::post('Sale/loginProcess',[staffController::class, 'loginProcess'])->name('saleLoginProcess');
+Route::get('Staff/login.html',[staffController::class, 'login'])->name('staffLogin');
+Route::post('Staff/loginProcess',[staffController::class, 'loginProcess'])->name('staffLoginProcess');
 
 Route::get('changeLanguage-{language}',[languageController::class, 'changeLanguage'])->name('changeLanguage');
 
@@ -52,7 +51,7 @@ Route::middleware([checkSessionAdmin::class])->group(function(){
 			});
 			Route::get('staffList.html',[staffController::class, 'staffList'])->name('staffList');
 			Route::get('addStaff.html',function() {
-				return view('Admin.Sale.addStaff');
+				return view('Admin.Staff.addStaff');
 			})->name('addStaff');
             Route::get('viewStaff-{id}.html',[staffController::class, 'viewStaff'])->name('viewStaff');
             Route::post('editStaff',[staffController::class, 'editStaff'])->name('editStaff');
@@ -69,68 +68,46 @@ Route::middleware([checkSessionAdmin::class])->group(function(){
 		});
 		Route::group(['prefix' => 'Paysheet'],function(){
 			Route::get('/', function(){
-				return redirect()->route('coursesList');
+				return redirect()->route('paysheetList');
 			});
 			Route::get('paysheetList.html',[paysheetController::class, 'paysheetList'])->name('paysheetList');
             Route::get('addPaysheet.html',[paysheetController::class, 'addPaysheet'])->name('addPaysheet');
 		});
-		Route::group(['prefix' => 'Schedules'],function(){
+		Route::group(['prefix' => 'Request'],function(){
 			Route::get('/', function(){
-				return redirect()->route('schedulesList');
+				return redirect()->route('requestList');
 			});
-			Route::get('schedulesList.html',[scheduleController::class, 'schedulesList'])->name('schedulesList');
-			Route::post('addScheduleProcess',[scheduleController::class, 'addScheduleProcess'])->name('addScheduleProcess');
-			Route::get('deleteSchedule-{id}',[scheduleController::class, 'deleteSchedule'])->name('deleteSchedule');
-		});
-		Route::group(['prefix' => 'Classes'],function(){
-			Route::get('/', function(){
-				return redirect()->route('classesList');
-			});
-			Route::get('classesList.html',[classController::class, 'classesList'])->name('classesList');
-			Route::get('classDetail-{id}.html',[classController::class, 'classDetail'])->name('classDetail');
-			Route::post('addClassProcess',[classController::class, 'addClassProcess'])->name('addClassProcess');
-			Route::get('deleteClass-{id}',[classController::class, 'deleteClass']);
-			Route::get('OpenClass-{id}',[classController::class, 'OpenClass']);
-
-		});
-		Route::group(['prefix' => 'Interests'],function(){
-			Route::get('interestsList.html',[interestController::class, 'interestsList'])->name('interestsList');
-			Route::get('addClass-{id}',[interestController::class, 'addClass']);
-			Route::get('interestDetail-{id}.html',[interestController::class, 'interestDetail'])->name('interestDetail');
+			Route::get('requestList.html',[requestController::class, 'requestList'])->name('requestList');
+            Route::post('approvedRequest',[requestController::class, 'approvedRequest'])->name('approvedRequest');
+            Route::post('deleteRequest',[requestController::class, 'deleteRequest'])->name('deleteRequest');
 		});
 	});
 });
 
 Route::middleware([checkSessionSale::class])->group(function(){
-	Route::group(['prefix' => 'Sale'], function(){
+	Route::group(['prefix' => 'Staff'], function(){
 		Route::get('changeLanguage-{language}',[languageController::class, 'changeLanguage2']);
 		Route::get('/',function(){
 			return redirect()->route('dashboard');
 		});
 		Route::get('dashboard.html',[staffController::class, 'dashboard'])->name('dashboard');
-		Route::get('myProfile.html',[staffController::class, 'profile'])->name('profile');
+		Route::get('profile.html',[staffController::class, 'profile'])->name('profile');
+		Route::get('timesheet.html',[staffController::class, 'timesheet'])->name('timesheet');
+        Route::get('addTimesheet.html',[staffController::class, 'addTimesheet'])->name('addTimesheet');
+		Route::get('paysheet.html',[staffController::class, 'paysheet'])->name('paysheet');
+		Route::post('submitTimesheet',[staffController::class, 'submitTimesheet'])->name('submitTimesheet');
+		Route::get('request.html',[staffController::class, 'request'])->name('request');
+		Route::get('addRequest.html',[staffController::class, 'addRequest'])->name('addRequest');
+		Route::post('submitRequest',[staffController::class, 'submitRequest'])->name('submitRequest');
 		Route::post('changePassword',[staffController::class, 'changePassword'])->name('changePassword');
 		Route::post('changeAvatar',[staffController::class, 'changeAvatar'])->name('changeAvatar');
-		Route::get('saleLogout',function(){
-			Session::forget('sale_id');
-			Session::forget('sale_email');
-			Session::forget('sale_name');
-			return redirect()->route('saleLogin');
-		})->name('saleLogout');
-		Route::get('deleteStudent-{id}',[staffController::class, 'deleteStudent']);
-		Route::group(['prefix' => 'Student'],function(){
-			Route::get('addStudent.html',[staffController::class, 'addStudent'])->name('addStudent');
-			Route::post('addStudentProcess',[staffController::class, 'addStudentProcess'])->name('addStudentProcess');
-			Route::get('Interest.html',[staffController::class, 'studentInterest'])->name('studentInterest');
-			Route::post('addInterest',[staffController::class, 'addInterest'])->name('addInterest');
-			Route::post('addInterestNew',[staffController::class, 'addInterestNew'])->name('addInterestNew');
-		});
-		Route::group(['prefix' => 'Class'],function(){
-			Route::post('addStudentIntoClass',[staffController::class, 'addStudentIntoClass'])->name('addStudentIntoClass');
-			Route::get('courseList-{id}.html',[staffController::class, 'courseList'])->name('courseList');
-			Route::get('/{id}/classList-{id2}.html',[staffController::class, 'classList'])->name('classList');
-			Route::get('/{id}/class_detail-{id2}.html',[staffController::class, 'class_detail'])->name('class_detail');
-		});
+		Route::get('staffLogout',function(){
+			Session::forget('staff_id');
+			Session::forget('staff_email');
+			Session::forget('staff_name');
+			return redirect()->route('staffLogin');
+		})->name('staffLogout');
+
 	});
 });
 

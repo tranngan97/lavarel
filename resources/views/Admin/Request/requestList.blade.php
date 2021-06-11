@@ -1,7 +1,7 @@
 @extends('Admin.master')
 
 @section('title')
-  {{trans('lang.paysheet_manage')}}
+  Request Manage
 @endsection
 
 @section('css')
@@ -43,35 +43,33 @@
     <div class="col-md-12">
       <div class="card strpied-tabled-with-hover" id="card-master">
             <div class="card-header ">
-                <h4 class="card-title">{{trans('lang.paysheet_list')}}</h4>
-                <p class="card-category">{{trans('lang.paysheet_cate')}}</p>
-                <button class="add-paysheet" style="position: absolute;margin-left: 83%;margin-top: -3%;border-radius: 50px;background-color: #00b9fffa;height: 35px;">
-                    <a href="{{route('addPaysheet')}}" style="color: white !important;">New Paysheet</a>
-                </button>
+                <h4 class="card-title">Request List</h4>
+                <p class="card-category">List of all request</p>
             </div>
           <div class="card-body table-full-width table-responsive">
               <table  id="mytable" align="center" class="table table-hover">
                   <thead>
                   <th>ID</th>
-                  <th>Timesheet Id</th>
                   <th>Staff Id</th>
-                  <th>Month</th>
-                  <th>{{trans('lang.bank')}}</th>
-                  <th>Social Insurance</th>
-                  <th>Health Insurance</th>
-                  <th>Total Paid</th>
+                  <th>Type</th>
+                  <th>Note</th>
+                  <th>Action</th>
                   </thead>
                   <tbody>
-                  @foreach($paysheets as $paysheet)
+                  @foreach($requests as $request)
                       <tr>
-                          <td>{{$paysheet->paysheet_id}}</td>
-                          <td>{{$paysheet->timesheet_id}}</td>
-                          <td>{{$paysheet->staff_id}}</td>
-                          <td>{{$paysheet->month}}</td>
-                          <td>{{$paysheet->bank_account}}</td>
-                          <td>{{$paysheet->social_insurance}}</td>
-                          <td>{{$paysheet->health_insurance}}</td>
-                          <td>{{$paysheet->total_paid}}</td>
+                          <td>{{$request->request_id}}</td>
+                          <td>{{$request->staff_id}}</td>
+                          <td>{{$request->type}}</td>
+                          <td>{{$request->note}}</td>
+                          <td>
+                              <button class="add-staff" style="border-radius: 50px;background-color: #00b9fffa;">
+                                  <a href="{{route('approvedRequest', ['id' => $request->request_id])}}" style="color: white !important;">Approved</a>
+                              </button>
+                              <button class="delete-staff" style="border-radius: 50px;background-color: #ff1800fa;">
+                                  <a href="{{route('deleteRequest', ['id' => $request->request_id])}}" style="color: white !important;">Reject</a>
+                              </button>
+                          </td>
                       </tr>
                   @endforeach
                   </tbody>

@@ -145,17 +145,36 @@
         <!-- //////////////////////////////////////////////////////////////////////////// -->
         <!-- START CONTENT -->
         <section id="content">
-            <div class="row">
-                <div class="card-header ">
-                    <h4 class="card-title">New Timesheet</h4>
-                </div>
-                <div class="col-12">
-                    <form method="post" action="{{route('submitTimesheet')}}" id="timesheet_form">
-                        <div class="row">
-                            <input type="file" name="timesheet" class="dropify" data-height="250px" data-show-remove="false">
-                        </div>
-                        <button type="submit">Submit</button>
-                    </form>
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Add new request</h4>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" action="submitRequest" id="addForm">
+                            @csrf
+                            <div class="row">
+                                <div class="col-md-6 pr-1">
+                                    <div class="form-group">
+                                        <label>Request Type</label>
+                                        <select class="form-control" name="txtType" required>
+                                            <option value="0">Select Type</option>
+                                            <option value="paid_leave">Paid Leave</option>
+                                            <option value="unpaid_leave">UnPaid Leave</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 pr-1">
+                                    <div class="form-group">
+                                        <label>Request Note</label>
+                                        <textarea name="txtNote" placeholder="Request Note"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-info btn-fill pull-right">Add Request</button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
                 </div>
             </div>
             <div id="settingModal" class="modal">

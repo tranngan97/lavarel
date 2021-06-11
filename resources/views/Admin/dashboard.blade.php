@@ -74,13 +74,9 @@
                     <tbody>
                         <tr>
                             <th>TOTAL</th>
-                            <th>NEW STAFF</th>
-                            <th>RESIGN PENDING</th>
                         </tr>
                         <tr>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>4</td>
+                            <td>{{count($staffs)}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -101,13 +97,15 @@
                     <tbody>
                     <tr>
                         <th>ID</th>
-                        <th>DETAILS</th>
-                        <th>ACTION</th>
+                        <th>Staff Id</th>
+                        <th>Month</th>
                     </tr>
                     <tr>
-                        <td>1</td>
-                        <td>2</td>
-                        <td>4</td>
+                        @foreach($timesheets as $timesheet)
+                            <td>{{$timesheet->timesheet_id}}</td>
+                            <td>{{$timesheet->staff_id}}</td>
+                            <td>{{$timesheet->month}}</td>
+                        @endforeach
                     </tr>
                     </tbody>
                 </table>
@@ -123,13 +121,13 @@
     <div class="col-md-12">
         <div class="card staff-static">
             <div class="card-header ">
-                <h4 class="card-title" align="center">{{trans('lang.pending_paysheets')}}</h4>
+                <h4 class="card-title" align="center">Pending Request</h4>
                 <table>
                     <tbody>
                     <tr>
                         <th>STAFF ID</th>
-                        <th>STAFF DETAIL</th>
-                        <th>MISSING PAYSHEETS</th>
+                        <th>REQUEST TYPE</th>
+                        <th>NOTE</th>
                     </tr>
                     <tr>
                         <td>1</td>

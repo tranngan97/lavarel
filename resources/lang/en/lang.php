@@ -27,6 +27,8 @@ return [
     'paysheet_list' => 'Manage Paysheets',
     'paysheet_cate' => 'list of all Paysheets',
     'paysheet_add' => 'Add New Paysheets',
+    'success_delete_request' => 'Request Delete Successfully',
+    'success_approved_request' => 'Request Approved Successfully',
     'staff_list' => 'Staff List',
     'staff_id' => 'ID',
     'staff_name' => 'Name',

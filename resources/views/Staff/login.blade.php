@@ -37,7 +37,7 @@
 	<div class="section"></div>
   <div id="login-page">
     <div class="col s12 z-depth-4 card-panel">
-      <form method="post" action="{{route('saleLoginProcess')}}" accept-charset="UTF-8" class="login-form">
+      <form method="post" action="{{route('staffLoginProcess')}}" accept-charset="UTF-8" class="login-form">
       	@csrf
         <div class="row">
           <div class="input-field col s12 center">

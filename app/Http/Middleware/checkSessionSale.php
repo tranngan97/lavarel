@@ -15,8 +15,8 @@ class checkSessionSale
      */
     public function handle($request, Closure $next)
     {
-        if($request->session()->has('sale_email')){
+        if($request->session()->has('staff_email')){
          return $next($request);
         }
-        return redirect()->route('saleLogin')->with('err','Please login to continue!');    }
+        return redirect()->route('staffLogin')->with('err','Please login to continue!');    }
 }

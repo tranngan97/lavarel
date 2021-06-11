@@ -3,35 +3,35 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\timesheetModel;
+use App\requestModel;
 
-class timesheetController extends Controller
+class requestController extends Controller
 {
     //
-    public function timesheetList()
+    public function requestList()
     {
-    	$timesheets = timesheetModel::all();
-    	return view('Admin.Timesheet.timesheetList',['timesheets' => $timesheets]);
+    	$requests = requestModel::all();
+    	return view('Admin.Request.requestList',['requests' => $requests]);
     }
 
-    public function approvedTimesheet($request)
+    public function approvedReqquest($request)
     {
-        timesheetModel::where('timesheet_id',$request->id)([
+        requestModel::where('request_id',$request->id)([
             'status' => '1'
         ]);
         $notification = array(
-            'message' => trans('lang.success_approved_timesheet'),
+            'message' => trans('lang.success_approved_request'),
             'alert-type' => 'success'
         );
-        return redirect()->route('timesheetList')->with($notification);
+        return redirect()->route('requestList')->with($notification);
     }
-    public function deleteTimesheet($request)
+    public function deleteReqquest($request)
     {
-        timesheetModel::deleteTimesheet($request->id);
+        requestModel::deleteRequest($request->id);
         $notification = array(
-            'message' => trans('lang.success_delete_timesheet'),
+            'message' => trans('lang.success_delete_request'),
             'alert-type' => 'success'
         );
-        return redirect()->route('timesheetList')->with($notification);
+        return redirect()->route('requestList')->with($notification);
     }
 }

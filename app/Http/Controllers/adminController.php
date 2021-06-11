@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\paysheetModel;
+use App\timesheetModel;
 use Illuminate\Http\Request;
 use App\adminModel;
 use App\classModel;
@@ -13,7 +15,9 @@ class adminController extends Controller
     //
     public function mainPage()
     {
-        return view('Admin.dashboard');
+        $staffs = staffModel::getAll();
+        $pendingTimesheets = timesheetModel::where('status',0)->groupBy('staff_id');
+        return view('Admin.dashboard',['staffs' => $staffs, 'timesheets' => $pendingTimesheets]);
     }
     public function login()
     {

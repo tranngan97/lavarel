@@ -56,13 +56,19 @@
                     <li class="nav-item  @if(Request::is('Admin/TimeSheet/*')) active @endif">
                         <a class="nav-link" href="{{route('timesheetList')}}">
                             <i class="nc-icon nc-single-copy-04"></i>
-                            <p>{{trans('lang.manage_timesheet')}}</p>
+                            <p>MANAGE TIMESHEETS</p>
                         </a>
                     </li>
 					<li class="nav-item  @if(Request::is('Admin/Paysheet/*')) active @endif">
                         <a class="nav-link" href="{{route('paysheetList')}}">
                             <i class="nc-icon nc-notes"></i>
                             <p>{{trans('lang.paysheet_manage')}}</p>
+                        </a>
+                    </li>
+                    <li class="nav-item  @if(Request::is('Admin/Request/*')) active @endif">
+                        <a class="nav-link" href="{{route('requestList')}}">
+                            <i class="nc-icon nc-notes"></i>
+                            <p>MANAGE REQUESTS</p>
                         </a>
                     </li>
             </div>

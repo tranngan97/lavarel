@@ -2,19 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\classModel;
-use App\studentModel;
+use App\paysheetModel;
+use App\requestModel;
+use App\timesheetModel;
 use Illuminate\Http\Request;
 use App\staffModel;
 use File;
 use Image;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Input;
 class staffController extends Controller
 {
     //Sale Controller for Admin use
     public function staffList()
     {
         $staffs = staffModel::getAll();
-    	return view('Admin.Sale.salesListtest',['staffs' => $staffs]);
+    	return view('Admin.Staff.salesListtest',['staffs' => $staffs]);
     }
     public function addStaffProcess(Request $request)
     {
@@ -58,7 +61,7 @@ class staffController extends Controller
     //Sale Controller for Sale use
     public function dashboard()
     {
-        return view('Sale.dashboard');
+        return view('Staff.dashboard');
     }
     public function login()
     {
@@ -67,7 +70,7 @@ class staffController extends Controller
             //
             return redirect()->route('dashboard');
         }
-        return view('Sale.login');
+        return view('Staff.login');
     }
     public function loginProcess(Request $request)
     {
@@ -84,19 +87,19 @@ class staffController extends Controller
             'staff_name' => $staff->staff_name,
         ]);
         $notification = array(
-                'message' => 'Welcome to Sale Dashboard!',
+                'message' => 'Welcome to Staff Dashboard!',
                 'alert-type' => 'success'
             );
            return redirect()->route('dashboard')->with($notification);
         }else
         {
-            return redirect()->route('saleLogin')->with("err","Please, try again!");
+            return redirect()->route('staffLogin')->with("err","Please, try again!");
         }
     }
     public function profile()
     {
         $profile = staffModel::where('staff_id',session('staff_id'))->first();
-        return view('Sale.profile',['profile' => $profile]);
+        return view('Staff.profile',['profile' => $profile]);
     }
     public function changePassword(Request $request)
     {
@@ -133,7 +136,7 @@ class staffController extends Controller
     public function viewStaff($id)
     {
         $staff = staffModel::where('staff_id',$id)->first();
-        return view('Admin.Sale.viewStaff',['staff' => $staff]);
+        return view('Admin.Staff.viewStaff',['staff' => $staff]);
     }
 
     public function editStaff(Request $request)
@@ -171,5 +174,58 @@ class staffController extends Controller
             'alert-type' => 'success'
         );
         return redirect()->route('staffList')->with($notification);
+    }
+
+    public function timesheet()
+    {
+        $timesheets = timesheetModel::where('staff_id', session()->get('staff_id'));
+        return view('Staff.timesheet',['timesheets' => $timesheets]);
+    }
+
+    public function addTimesheet()
+    {
+        return view('Staff.addTimesheet');
+    }
+
+    public function submitTimesheet(Request $request)
+    {
+        $file = $request->timesheet;
+        Excel::load(Input::file('timesheet'), function ($reader) {
+
+            foreach ($reader->toArray() as $row) {
+                var_dump($row);
+            }
+        });
+    }
+
+    public function request()
+    {
+        $requests = requestModel::where('staff_id', session()->get('staff_id'));
+        return view('Staff.request',['requests' => $requests]);
+    }
+
+    public function addRequest(Request $request)
+    {
+        return view('Staff.addRequest');
+    }
+    public function submitRequest( Request $request)
+    {
+        requestModel::insert([
+            'staff_id' => session()->get('staff_id'),
+            'type' => $request->txtType,
+            'note' => $request->txtNote,
+            'status' => 0
+        ]);
+        return redirect()->route('request');
+    }
+    public function paysheet()
+    {
+        $paysheets = paysheetModel::where('staff_id', session()->get('staff_id'));
+        return view('Staff.paysheet',['paysheets' => $paysheets]);
+    }
+
+    public function addPaysheet()
+    {
+        return view('Staff.addPaysheet');
     }
 }

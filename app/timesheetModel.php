@@ -26,4 +26,8 @@ class timesheetModel extends Model {
 	{
 		DB::update('update tbltimesheet set major_name=? where timesheet_id=?',[$obj->timesheet_id]);
 	}
+	static function getPendingTimeSheetsByStaff()
+    {
+        return DB::select('select * from tbltimesheet where status=0');
+    }
 }

@@ -2,32 +2,25 @@
 
 use Illuminate\Database\Eloquent\Model;
 use DB;
-class timesheetModel extends Model {
-	protected $table = 'tbltimesheet';
+class requestModel extends Model {
+	protected $table = 'tblrequest';
 	public $timestamps = false;
 	//
 	static function getAll()
 	{
-		return DB::select('select * from tbltimesheet');
+		return DB::select('select * from tblrequest');
 	}
 	static function getById($id)
 	{
-		return DB::select('select * from tbltimesheet where timesheet_id=? limit 1',[$id]);
+		return DB::select('select * from tblrequest where request_id=? limit 1',[$id]);
 	}
-	static function insertMajor($obj)
+
+//	static function insert($obj)
+//    {
+//        DB::insert('insert into tblrequest(staff_id,tyoe,note,status) values(?)',[$obj->staff_id,$obj->type,$obj->note,$obj->status]);
+//    }
+	static function deleteRequest($id)
 	{
-		DB::insert('insert into tbltimesheet(major_name) values(?)',[$obj->major_name]);
+		DB::delete('delete from tblrequest where request_id=?',[$id]);
 	}
-	static function deleteTimesheet($id)
-	{
-		DB::delete('delete from tbltimesheet where timesheet_id=?',[$id]);
-	}
-	static function updateMajor($obj)
-	{
-		DB::update('update tbltimesheet set major_name=? where timesheet_id=?',[$obj->timesheet_id]);
-	}
-	static function getPendingTimeSheetsByStaff()
-    {
-        return DB::select('select * from tbltimesheet where status=0');
-    }
 }

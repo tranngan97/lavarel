@@ -1,4 +1,4 @@
-@extends('Sale.newmaster')
+@extends('Staff.newmaster')
 
 @section('title')
 	My Profile
@@ -16,14 +16,17 @@
 			@csrf
 			<div class="row">
 				<div class="col s12 m12 l12">
-	                	<input type="file" name="avatar" class="dropify" data-height="250px" data-default-file="{{asset($profile->sale_avatar)}}" data-show-remove="false">
+	                	<input type="file" name="avatar" class="dropify" data-height="250px" data-default-file="{{asset($profile->staff_avatar)}}" data-show-remove="false">
 	            </div>
 			</div>
 			<div class="row">
 				<div class="col s12 center-align">
-					<h4>{{$profile->sale_name}}</h4>
-					<h6>{{$profile->sale_email}}</h6>
-					<h6>{{$profile->sale_phone}}</h6>
+					<h4>{{$profile->staff_name}}</h4>
+					<h6>{{$profile->staff_email}}</h6>
+                    <h6>{{$profile->staff_dob}}</h6>
+					<h6>{{$profile->staff_phone}}</h6>
+					<h6>{{$profile->staff_department}}</h6>
+                    <h6>{{$profile->staff_gross}}</h6>
 				</div>
 				<div class="col s12 center-align">
 					<button class="btn waves-effect waves-light waves-cyan">Change avatar</button>

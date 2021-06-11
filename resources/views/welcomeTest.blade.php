@@ -89,11 +89,11 @@
 
                 <div class="links">
                     <a href="{{route('adminLogin')}}">Admin</a>
-                    <a href="{{route('saleLogin')}}">Sale</a>
+                    <a href="{{route('staffLogin')}}">Staff</a>
                 </div>
                 <div class="row">
                     <a href="{{route('adminLogin')}}"><img src="{{asset('images/Admin.png')}}"></a>
-                    <a href="{{route('saleLogin')}}"><img src="{{asset('images/user.png')}}"></a>
+                    <a href="{{route('staffLogin')}}"><img src="{{asset('images/user.png')}}"></a>
                 </div>
             </div>
         </div>

@@ -17,7 +17,7 @@ class staffModel extends Model {
 	}
 	static function checkRow($obj)
     {
-    	$arr=DB::select("select * from tblstaff where staff_email=? and staff_pass=? ",[$obj->sale_email,$obj->sale_pass]);
+    	$arr=DB::select("select * from tblstaff where staff_email=? and staff_pass=? ",[$obj->staff_email,$obj->staff_pass]);
     	$check = count($arr);
     	return $check;
     }

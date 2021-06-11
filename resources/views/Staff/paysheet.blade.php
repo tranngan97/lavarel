@@ -149,35 +149,31 @@
                 <div class="col-md-12">
                     <div class="card strpied-tabled-with-hover" id="card-master">
                         <div class="card-header ">
-                            <h4 class="card-title">{{trans('lang.timesheet_list')}}</h4>
-                            <p class="card-category">{{trans('lang.timesheet_cate')}}</p>
-                            <button class="add-timesheet" style="position: absolute;margin-left: 83%;margin-top: -3%;border-radius: 50px;background-color: #00b9fffa;height: 35px;">
-                                <a href="{{route('addTimesheet')}}" style="color: white !important;">New Timesheet</a>
-                            </button>
+                            <h4 class="card-title">Paysheet Manage</h4>
                         </div>
 
                         <div class="card-body table-full-width table-responsive">
                             <table  id="mytable" align="center" class="table table-hover">
                                 <thead>
                                 <th>ID</th>
-                                <th>{{trans('lang.staff_name')}}</th>
+                                <th>Timesheet Id</th>
                                 <th>Month</th>
-                                <th>Status</th>
+                                <th>Total Paid</th>
                                 <th>{{trans('lang.action')}}</th>
                                 </thead>
                                 <tbody>
-                                @foreach($timesheets as $timesheet)
+                                @foreach($paysheets as $paysheet)
                                     <tr>
-                                        <td>{{$timesheet->timesheet_id}}</td>
-                                        <td>{{$timesheet->staff_name}}</td>
-                                        <td>{{$timesheet->month}}</td>
-                                        <td>{{$timesheet->status}}</td>
+                                        <td>{{$paysheet->paysheet_id}}</td>
+                                        <td>{{$paysheet->timesheet_id}}</td>
+                                        <td>{{$paysheet->month}}</td>
+                                        <td>{{$paysheet->total_paid}}</td>
                                         <td>
-                                            <button class="add-staff" style="border-radius: 50px;background-color: #00b9fffa;">
-                                                <a href="{{route('approvedTimesheet', ['id' => $timesheet->timesheet_id])}}" style="color: white !important;">Approved</a>
+                                            <button class="view-paysheet" style="border-radius: 50px;background-color: #00b9fffa;">
+                                                <a href="{{route('viewPaysheet', ['id' => $paysheet->paysheet_id])}}" style="color: white !important;">View</a>
                                             </button>
                                             <button class="delete-staff" style="border-radius: 50px;background-color: #ff1800fa;">
-                                                <a href="{{route('deleteTimesheet', ['id' => $timesheet->timesheet_id])}}" style="color: white !important;">Reject</a>
+                                                <a href="{{route('deletePaysheet', ['id' => $paysheet->paysheet_id])}}" style="color: white !important;">Delete</a>
                                             </button>
                                         </td>
                                     </tr>
