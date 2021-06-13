@@ -43,6 +43,7 @@
                             <div class="form-group">
                                 <label>{{trans('lang.dob')}}</label>
                                 <input type="text" class="form-control" name="txtDob"  placeholder="{{trans('lang.dob')}}" value="{{$staff->staff_dob}}" required>
+                                <div class='input-group date' id='datetimepicker'></div>
                             </div>
                         </div>
                     </div>
@@ -60,9 +61,9 @@
                                 <label>{{trans('lang.department')}}</label>
                                 <select class="form-control" name="txtDepartment" required value="{{$staff->staff_department}}">
                                     <option value="0">Select Department</option>
-                                    <option value="1">Department 1</option>
-                                    <option value="2">Department 2</option>
-                                    <option value="3">Department 3</option>
+                                    <option value="1">IT Department</option>
+                                    <option value="2">Finance Department</option>
+                                    <option value="3">Customer Department</option>
                                 </select>
                             </div>
                         </div>
@@ -182,4 +183,9 @@
 			});
 		});
 	</script>
+    <script type="text/javascript">
+        $(function() {
+            $('#datetimepicker').datetimepicker();
+        });
+    </script>
 @endsection

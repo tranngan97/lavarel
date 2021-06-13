@@ -26,6 +26,10 @@ Route::get('/', function () {
     return view('welcomeTest');
 });
 
+Route::get('/back', function () {
+    return view('welcomeTest');
+})->name('back');
+
 Route::get('Admin/login.html',[adminController::class, 'login'])->name('adminLogin');
 Route::post('Admin/loginProcess',[adminController::class, 'loginProcess'])->name('adminLoginProcess');
 Route::get('Staff/login.html',[staffController::class, 'login'])->name('staffLogin');
@@ -63,8 +67,8 @@ Route::middleware([checkSessionAdmin::class])->group(function(){
 				return redirect()->route('timesheetList');
 			});
 			Route::get('timesheet.html',[timesheetController::class, 'timesheetList'])->name('timesheetList');
-			Route::post('approvedTimesheet',[timesheetController::class, 'approvedTimesheet'])->name('approvedTimesheet');
-			Route::post('deleteTimesheet',[timesheetController::class, 'deleteTimesheet'])->name('deleteTimesheet');
+			Route::get('approvedTimesheet',[timesheetController::class, 'approvedTimesheet'])->name('approvedTimesheet');
+			Route::get('deleteTimesheet',[timesheetController::class, 'deleteTimesheet'])->name('deleteTimesheet');
 		});
 		Route::group(['prefix' => 'Paysheet'],function(){
 			Route::get('/', function(){
@@ -78,8 +82,8 @@ Route::middleware([checkSessionAdmin::class])->group(function(){
 				return redirect()->route('requestList');
 			});
 			Route::get('requestList.html',[requestController::class, 'requestList'])->name('requestList');
-            Route::post('approvedRequest',[requestController::class, 'approvedRequest'])->name('approvedRequest');
-            Route::post('deleteRequest',[requestController::class, 'deleteRequest'])->name('deleteRequest');
+            Route::get('approvedRequest',[requestController::class, 'approvedRequest'])->name('approvedRequest');
+            Route::get('deleteRequest',[requestController::class, 'deleteRequest'])->name('deleteRequest');
 		});
 	});
 });

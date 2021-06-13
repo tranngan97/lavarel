@@ -63,11 +63,13 @@
                           <td>{{$request->type}}</td>
                           <td>{{$request->note}}</td>
                           <td>
+                              @if($request->status == 0)
                               <button class="add-staff" style="border-radius: 50px;background-color: #00b9fffa;">
                                   <a href="{{route('approvedRequest', ['id' => $request->request_id])}}" style="color: white !important;">Approved</a>
                               </button>
+                              @endif
                               <button class="delete-staff" style="border-radius: 50px;background-color: #ff1800fa;">
-                                  <a href="{{route('deleteRequest', ['id' => $request->request_id])}}" style="color: white !important;">Reject</a>
+                                  <a href="{{route('deleteRequest', ['id' => $request->request_id])}}" style="color: white !important;">Delete</a>
                               </button>
                           </td>
                       </tr>

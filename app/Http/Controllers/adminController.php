@@ -6,9 +6,8 @@ use App\paysheetModel;
 use App\timesheetModel;
 use Illuminate\Http\Request;
 use App\adminModel;
-use App\classModel;
 use App\staffModel;
-use App\studentModel;
+use App\requestModel;
 //use Session;
 class adminController extends Controller
 {
@@ -16,8 +15,11 @@ class adminController extends Controller
     public function mainPage()
     {
         $staffs = staffModel::getAll();
-        $pendingTimesheets = timesheetModel::where('status',0)->groupBy('staff_id');
-        return view('Admin.dashboard',['staffs' => $staffs, 'timesheets' => $pendingTimesheets]);
+        $newStaffs = staffModel::getNewStaffs();
+        $pendingTimesheets = timesheetModel::getPendingTimesheet();
+        $pendingRequests = requestModel::getPendingRequest();
+        return view('Admin.dashboard',
+            ['staffs' => $staffs, 'newstaffs' => $newStaffs, 'timesheets' => $pendingTimesheets, 'requests' => $pendingRequests]);
     }
     public function login()
     {

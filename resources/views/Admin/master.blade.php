@@ -17,6 +17,7 @@
     <link rel="stylesheet" type="text/css" href="{{asset('css/jquery.dataTables.min.css')}}">
     <link href="{{asset('css/toastr.min.css')}}" rel="stylesheet">
     <link href="{{asset('css/materialize/flag-icon.min.css')}}" type="text/css" rel="stylesheet">
+    <link href="{{asset('css/datetimepicker.css')}}" type="text/css" rel="stylesheet">
 
     @yield('css')
     <style>
@@ -263,6 +264,8 @@
 <script src="{{asset('js/dashboardad.js')}}"></script>
 <script src="{{asset('js/jsEach/dashboard.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/toastr.min.js')}}"></script>
+<script src="{{asset('js/moment.js')}}"></script>
+<script src="{{asset('js/datetimepicker.js')}}"></script>
 
 
 	@yield('js')

@@ -20,7 +20,7 @@
 
 </head>
 
-<body class="cyan">
+<body class="login-page-admin" style="background-image: url('../images/login.jpg');background-repeat: no-repeat;background-size: cover;">
 
   <!-- Start Page Loading -->
   <div id="loader-wrapper">
@@ -31,41 +31,39 @@
   <!-- End Page Loading -->
 	@if(session('err'))
 		<h5 class="red-text text-darken-4 center-align">{{session('err')}}</h5>
-	@else
-      <h5 class="pink-text center-align">Please, login into your account</h5>
 	@endif
-	<div class="section"></div>
-  <div id="login-page">
-    <div class="col s12 z-depth-4 card-panel">
-      <form method="post" action="{{route('adminLoginProcess')}}" accept-charset="UTF-8" class="login-form">
-      	@csrf
-        <div class="row">
-          <div class="input-field col s12 center">
-            <img src="{{asset('images/logoBk.png')}}" alt="" class="circle responsive-img valign profile-image-login">
-            <p class="center login-form-text">Dai Hoc Bach Khoa Ha Noi</p>
-          </div>
-        </div>
-        <div class="row margin">
-          <div class="input-field col s12">
-            <i class="material-icons prefix">person_outline</i>
-            <input id="email" name="txtEmail" type="email">
-            <label for="email" class="center-align">Email</label>
-          </div>
-        </div>
-        <div class="row margin">
-          <div class="input-field col s12">
-            <i class="material-icons prefix">lock_outline</i>
-            <input id="password" name="txtPass" type="password">
-            <label for="password">Password</label>
-          </div>
-        </div>
+  <div class="section"></div>
+  <div id="login-page" style="width: 20%;margin-top: 10%;margin-left: 65%;">
+      <h1 style="text-align: center">Admin Login</h1>
+      <div class="row">
+          <form method="post" action="{{route('adminLoginProcess')}}" accept-charset="UTF-8" class="login-form" style="width:100%;">
+              @csrf
+              <div class="row margin">
+                  <div class="input-field col s12">
+                      <i class="material-icons prefix">person_outline</i>
+                      <input id="email" name="txtEmail" type="email">
+                      <label for="email" class="center-align">Email</label>
+                  </div>
+              </div>
+              <div class="row margin">
+                  <div class="input-field col s12">
+                      <i class="material-icons prefix">lock_outline</i>
+                      <input id="password" name="txtPass" type="password">
+                      <label for="password">Password</label>
+                  </div>
+              </div>
 
-        <div class="row">
-          <div class="input-field col s12">
-             <input class="btn waves-effect waves-light col s12" type="submit" value="Login">
-          </div>
-        </div>
-        </form>
+              <div class="row">
+                  <div class="input-field col s12">
+                      <input class="btn waves-effect waves-light col s12" type="submit" value="Login">
+                  </div>
+              </div>
+              <div class="row">
+                  <button class="btn waves-effect waves-light" style="margin-left: 30%;">
+                      <a href="{{route('back')}}" style="color: white !important;">Not Admin?</a>
+                  </button>
+              </div>
+          </form>
     </div>
   </div>
 

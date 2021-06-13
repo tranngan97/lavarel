@@ -47,7 +47,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>{{trans('lang.dob')}}</label>
-                                <input type="text" class="form-control" name="txtDob"  placeholder="{{trans('lang.dob')}}" required>
+                                <input type="text" class="form-control" id='datetimepicker' name="txtDob"  placeholder="{{trans('lang.dob')}}" required>
                             </div>
                         </div>
                     </div>
@@ -65,9 +65,22 @@
                                 <label>{{trans('lang.department')}}</label>
                                 <select class="form-control" name="txtDepartment" required>
                                     <option value="0">Select Department</option>
-                                    <option value="1">Department 1</option>
-                                    <option value="2">Department 2</option>
-                                    <option value="3">Department 3</option>
+                                    <option value="1">IT Department</option>
+                                    <option value="2">Finance Department</option>
+                                    <option value="3">Customer Department</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Certificate</label>
+                                <select class="form-control" name="txtCert" required>
+                                    <option value="0">Select Certificate</option>
+                                    <option value="1">University</option>
+                                    <option value="2">Collage</option>
+                                    <option value="3">Academy</option>
                                 </select>
                             </div>
                         </div>
@@ -182,6 +195,10 @@
 				},
 				errorElement: 'em',
 			});
+
+            $("#datetimepicker").datetimepicker({
+                format: 'DD-MMM-yyyy'
+            });
 		});
 	</script>
 @endsection

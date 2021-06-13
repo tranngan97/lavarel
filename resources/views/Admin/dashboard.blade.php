@@ -74,9 +74,11 @@
                     <tbody>
                         <tr>
                             <th>TOTAL</th>
+                            <th>New Staffs</th>
                         </tr>
                         <tr>
                             <td>{{count($staffs)}}</td>
+                            <td>{{count($newstaffs)}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -129,11 +131,13 @@
                         <th>REQUEST TYPE</th>
                         <th>NOTE</th>
                     </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>2</td>
-                        <td>4</td>
-                    </tr>
+                    @foreach($requests as $request)
+                        <tr>
+                        <td>{{$request->request_id}}</td>
+                        <td>{{$request->type}}</td>
+                        <td>{{$request->note}}</td>
+                        </tr>
+                    @endforeach
                     </tbody>
                 </table>
             </div>

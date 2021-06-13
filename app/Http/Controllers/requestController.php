@@ -14,19 +14,19 @@ class requestController extends Controller
     	return view('Admin.Request.requestList',['requests' => $requests]);
     }
 
-    public function approvedReqquest($request)
+    public function approvedRequest()
     {
-        requestModel::where('request_id',$request->id)([
-            'status' => '1'
-        ]);
+        $request= Request::capture();
+        requestModel::updateData($request->id,['status' => '1']);
         $notification = array(
             'message' => trans('lang.success_approved_request'),
             'alert-type' => 'success'
         );
         return redirect()->route('requestList')->with($notification);
     }
-    public function deleteReqquest($request)
+    public function deleteRequest()
     {
+        $request= Request::capture();
         requestModel::deleteRequest($request->id);
         $notification = array(
             'message' => trans('lang.success_delete_request'),

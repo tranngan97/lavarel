@@ -8,6 +8,7 @@ use App\timesheetModel;
 use Illuminate\Http\Request;
 use App\staffModel;
 use File;
+use Illuminate\Support\Facades\Date;
 use Image;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Input;
@@ -31,13 +32,16 @@ class staffController extends Controller
                 $filename = time() . '.' . $avatar->getClientOriginalExtension();
                 Image::make($avatar)->resize(300,300)->save( public_path('/images/' . $filename) );
             }
+            $now = Date::now();
             staffModel::insert([
+                'created_at' => $now,
                 'staff_name' => $request->txtName,
                 'staff_email' => $request->txtEmail,
                 'staff_pass' => md5($request->txtPass),
                 'staff_phone' => $request->txtPhone,
                 'staff_avatar' => 'images/' . $filename,
                 'staff_department' => $request->txtDepartment,
+                'staff_cert' => $request->txtCert,
                 'staff_dob' => $request->txtDob,
                 'social_insurance' => $request->txtSocialIns,
                 'health_insurance' => $request->txtHealthIns,
