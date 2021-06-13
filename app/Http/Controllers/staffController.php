@@ -216,6 +216,7 @@ class staffController extends Controller
             'staff_id' => session()->get('staff_id'),
             'type' => $request->txtType,
             'note' => $request->txtNote,
+            'month' => $request->txtMonth,
             'status' => 0
         ]);
         return redirect()->route('request');
@@ -229,7 +230,7 @@ class staffController extends Controller
 
     public function paysheet()
     {
-        $paysheets = paysheetModel::where('staff_id', session()->get('staff_id'));
+        $paysheets = paysheetModel::getByStaffId(session()->get('staff_id'));
         return view('Staff.paysheet',['paysheets' => $paysheets]);
     }
 

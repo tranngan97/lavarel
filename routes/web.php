@@ -113,6 +113,7 @@ Route::middleware([checkSessionSale::class])->group(function(){
 		Route::post('downloadTimesheet',[staffController::class, 'downloadTimesheet'])->name('downloadTimesheet');
 		Route::post('changeAvatar',[staffController::class, 'changeAvatar'])->name('changeAvatar');
         Route::post('importTimesheet', [staffController::class, 'importTimesheet'])->name('importTimesheet');
+        Route::get('viewPaysheetDetail.html',[paysheetController::class, 'viewPaysheetDetail'])->name('viewPaysheetDetail');
         Route::get('staffLogout',function(){
 			Session::forget('staff_id');
 			Session::forget('staff_email');

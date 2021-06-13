@@ -45,4 +45,9 @@ class paysheetModel extends Model {
     {
         return DB::delete('delete from tblpaysheet where paysheet_id=?',[$id]);
     }
+
+    static function getByStaffId($id)
+    {
+        return DB::select('select * from tblpaysheet where staff_id=?',[$id]);
+    }
 }

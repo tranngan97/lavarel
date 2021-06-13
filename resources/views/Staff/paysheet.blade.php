@@ -23,10 +23,10 @@
                                 <td>{{$paysheet->paysheet_id}}</td>
                                 <td>{{$paysheet->timesheet_id}}</td>
                                 <td>{{$paysheet->month}}</td>
-                                <td>{{$paysheet->total_paid}}</td>
+                                <td>{{number_format($paysheet->total_paid)}}</td>
                                 <td>
                                     <button class="view-paysheet" style="border-radius: 50px;background-color: #00b9fffa;">
-                                        <a href="{{route('viewPaysheet', ['id' => $paysheet->paysheet_id])}}" style="color: white !important;">View</a>
+                                        <a href="{{route('viewPaysheetDetail', ['id' => $paysheet->paysheet_id])}}" style="color: white !important;">View</a>
                                     </button>
                                     <button class="delete-staff" style="border-radius: 50px;background-color: #ff1800fa;">
                                         <a href="{{route('deletePaysheet', ['id' => $paysheet->paysheet_id])}}" style="color: white !important;">Delete</a>

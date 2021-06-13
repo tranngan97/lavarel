@@ -33,6 +33,17 @@ class paysheetController extends Controller
         }
     }
 
+    public function viewPaysheetDetail()
+    {
+        $request = Request::capture();
+        $paysheet = paysheetModel::getById($request->id);
+        foreach ($paysheet as $paysheet){
+            $staff = staffModel::getAll();
+            $timesheet = timesheetModel::getAll();
+            return view('Admin.Paysheet.viewPaysheet',['paysheet' => $paysheet,'staffs' => $staff, 'timesheets' => $timesheet]);
+        }
+    }
+
     public function deletePaysheet()
     {
         $request = Request::capture();
