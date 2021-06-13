@@ -113,11 +113,11 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link">
-                                <span class="no-icon">{{session('admin_name')}}</span>
+                                <span class="no-icon">{{session('staff_name')}}</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('adminLogout')}}">
+                            <a class="nav-link" href="{{route('staffLogout')}}">
                                 <span class="no-icon">{{trans('lang.log-out')}}</span>
                             </a>
                         </li>
