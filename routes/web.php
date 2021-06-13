@@ -102,6 +102,7 @@ Route::middleware([checkSessionSale::class])->group(function(){
 		Route::post('submitTimesheet',[staffController::class, 'submitTimesheet'])->name('submitTimesheet');
 		Route::get('request.html',[staffController::class, 'request'])->name('request');
 		Route::get('addRequest.html',[staffController::class, 'addRequest'])->name('addRequest');
+		Route::get('deleteRequest',[staffController::class, 'deleteRequest'])->name('deleteRequest');
 		Route::post('submitRequest',[staffController::class, 'submitRequest'])->name('submitRequest');
 		Route::post('changePassword',[staffController::class, 'changePassword'])->name('changePassword');
 		Route::post('changeAvatar',[staffController::class, 'changeAvatar'])->name('changeAvatar');
@@ -113,45 +114,5 @@ Route::middleware([checkSessionSale::class])->group(function(){
 		})->name('staffLogout');
 
 	});
-});
-
-Route::group(['prefix' => 'Ajax'], function(){
-	Route::get('SaleStat',[AjaxController::class, 'SaleStat']);
-	Route::get('getCourses',[AjaxController::class, 'getCourses']);
-	Route::get('getSchedules',[AjaxController::class, 'getSchedules']);
-	Route::get('getCourses_classList',[AjaxController::class, 'getCourses_classList']);
-	Route::get('getStudent',[AjaxController::class, 'getStudent']);
-	Route::get('getStudentName',[AjaxController::class, 'getStudentName']);
-	Route::get('ViewStats',[AjaxController::class, 'ViewStats']);
-	Route::get('Notification',[AjaxController::class, 'Notification']);
-	Route::get('Notification2',[AjaxController::class, 'Notification2']);
-	Route::get('getMajor',[AjaxController::class, 'getMajor']);
-	Route::get('CheckStudent',[AjaxController::class, 'CheckStudent']);
-	Route::get('CheckClass',[AjaxController::class, 'CheckClass']);
-	Route::get('CheckStudentSale',[AjaxController::class, 'CheckStudentSale']);
-	Route::get('CheckOpenClass',[AjaxController::class, 'CheckOpenClass']);
-	Route::get('getCourseInterest',[AjaxController::class, 'getCourseInterest']);
-	Route::get('CheckInterest',[AjaxController::class, 'CheckInterest']);
-	Route::get('CheckDeleteCourse',[AjaxController::class, 'CheckDeleteCourse']);
-	Route::get('CheckDeleteMajor',[AjaxController::class, 'CheckDeleteMajor']);
-	Route::get('CheckEditCourse',[AjaxController::class, 'CheckEditCourse']);
-	Route::get('SearchCourse',[AjaxController::class, 'SearchCourse']);
-	Route::get('SearchClass',[AjaxController::class, 'SearchClass']);
-});
-
-
-
-Route::get('testModel',function(){
-	$majors = staffModel::getMajor();
-    $courses = staffModel::getCourse();
-	return view('test',['majors' => $majors,'courses' => $courses]);
-});
-Route::get('test',function()
-{
-	return view('Sale.newmaster');
-});
-Route::get('test2',function()
-{
-	return view('Sale.dashboard');
 });
 

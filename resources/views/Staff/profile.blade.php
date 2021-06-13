@@ -16,22 +16,27 @@
 			@csrf
 			<div class="row">
 				<div class="col s12 m12 l12">
-	                	<input type="file" name="avatar" class="dropify" data-height="250px" data-default-file="{{asset($profile->staff_avatar)}}" data-show-remove="false">
+	                <input type="file" name="avatar" class="dropify" data-height="250px" data-default-file="{{asset($profile->staff_avatar)}}" data-show-remove="false">
 	            </div>
 			</div>
 			<div class="row">
-				<div class="col s12 center-align">
-					<h4>{{$profile->staff_name}}</h4>
-					<h6>{{$profile->staff_email}}</h6>
-                    <h6>{{$profile->staff_dob}}</h6>
-					<h6>{{$profile->staff_phone}}</h6>
-					<h6>{{$profile->staff_department}}</h6>
-                    <h6>{{$profile->staff_gross}}</h6>
-				</div>
-				<div class="col s12 center-align">
-					<button class="btn waves-effect waves-light waves-cyan">Change avatar</button>
+				<div class="col s12 center-align" style="text-align: center">
+					<h4>Full name: {{$profile->staff_name}}</h4>
+					<h6>Email: {{$profile->staff_email}}</h6>
+                    <h6>DOB: {{$profile->staff_dob}}</h6>
+					<h6>Phone: {{$profile->staff_phone}}</h6>
+					<h6>Department: {{$profile->staff_department}}</h6>
+                    <h6>Gross Salary: {{$profile->staff_gross}}</h6>
 				</div>
 			</div>
+            <div class="row" style="display: flex; width: 35%;margin-left: 35%;margin-top: 5%;margin-bottom: 5%;">
+                <div class="col s12 center-align">
+                    <button class="btn waves-effect waves-light waves-cyan">Change avatar</button>
+                </div>
+                <div class="col s12 center-align">
+                    <button class="btn waves-effect waves-light waves-cyan">Change Password</button>
+                </div>
+            </div>
 		</form>
 		<div class="section"></div>
 	</div>

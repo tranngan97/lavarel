@@ -15,6 +15,11 @@ class requestModel extends Model {
 		return DB::select('select * from tblrequest where request_id=? limit 1',[$id]);
 	}
 
+    static function getByStaffId($id)
+    {
+        return DB::select('select * from tblrequest where staff_id=?',[$id]);
+    }
+
 	static function deleteRequest($id)
 	{
 		DB::delete('delete from tblrequest where request_id=?',[$id]);

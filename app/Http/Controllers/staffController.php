@@ -204,7 +204,7 @@ class staffController extends Controller
 
     public function request()
     {
-        $requests = requestModel::where('staff_id', session()->get('staff_id'));
+        $requests = requestModel::getByStaffId(session()->get('staff_id'));
         return view('Staff.request',['requests' => $requests]);
     }
 
@@ -222,6 +222,13 @@ class staffController extends Controller
         ]);
         return redirect()->route('request');
     }
+
+    public function deleteRequest(Request $request)
+    {
+        requestModel::deleteRequest($request->id);
+        return redirect()->route('request');
+    }
+
     public function paysheet()
     {
         $paysheets = paysheetModel::where('staff_id', session()->get('staff_id'));
