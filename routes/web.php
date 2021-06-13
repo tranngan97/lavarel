@@ -96,6 +96,8 @@ Route::middleware([checkSessionSale::class])->group(function(){
 		});
 		Route::get('dashboard.html',[staffController::class, 'dashboard'])->name('dashboard');
 		Route::get('profile.html',[staffController::class, 'profile'])->name('profile');
+        Route::get('changePassword.html',[staffController::class, 'changePassword'])->name('changePassword');
+        Route::post('changePasswordProcess',[staffController::class, 'changePasswordProcess'])->name('changePasswordProcess');
 		Route::get('timesheet.html',[staffController::class, 'timesheet'])->name('timesheet');
         Route::get('addTimesheet.html',[staffController::class, 'addTimesheet'])->name('addTimesheet');
 		Route::get('paysheet.html',[staffController::class, 'paysheet'])->name('paysheet');
@@ -104,7 +106,6 @@ Route::middleware([checkSessionSale::class])->group(function(){
 		Route::get('addRequest.html',[staffController::class, 'addRequest'])->name('addRequest');
 		Route::get('deleteRequest',[staffController::class, 'deleteRequest'])->name('deleteRequest');
 		Route::post('submitRequest',[staffController::class, 'submitRequest'])->name('submitRequest');
-		Route::post('changePassword',[staffController::class, 'changePassword'])->name('changePassword');
 		Route::post('changeAvatar',[staffController::class, 'changeAvatar'])->name('changeAvatar');
 		Route::get('staffLogout',function(){
 			Session::forget('staff_id');

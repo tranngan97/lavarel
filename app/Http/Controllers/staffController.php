@@ -105,7 +105,7 @@ class staffController extends Controller
         $profile = staffModel::where('staff_id',session('staff_id'))->first();
         return view('Staff.profile',['profile' => $profile]);
     }
-    public function changePassword(Request $request)
+    public function changePasswordProcess(Request $request)
     {
         $check = staffModel::where('staff_id',session()->get('staff_id'))->where('staff_pass',md5($request->password))->count();
         if($check == 0){
@@ -238,5 +238,10 @@ class staffController extends Controller
     public function addPaysheet()
     {
         return view('Staff.addPaysheet');
+    }
+
+    public function changePassword()
+    {
+        return view('Staff.changePassword');
     }
 }

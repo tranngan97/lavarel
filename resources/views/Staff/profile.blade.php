@@ -34,7 +34,9 @@
                     <button class="btn waves-effect waves-light waves-cyan">Change avatar</button>
                 </div>
                 <div class="col s12 center-align">
-                    <button class="btn waves-effect waves-light waves-cyan">Change Password</button>
+                    <button class="btn waves-effect waves-light waves-cyan">
+                        <a href="{{route('changePassword')}}" style="color: white !important;">Change Password</a>
+                    </button>
                 </div>
             </div>
 		</form>
