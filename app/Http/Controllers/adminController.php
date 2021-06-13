@@ -49,4 +49,14 @@ class adminController extends Controller
     		return redirect()->route('adminLogin')->with("err","Please, try again!");
     	}
     }
+
+    public function addPaysheetProcess(Request $request)
+    {
+        paysheetModel::insertPaysheet([
+            'timesheet_id' => $request->txtTimesheetId,
+            'staff_id' => $request->txtStaffId,
+            'month' => $request->txtMonth
+        ]);
+        return redirect()->route('paysheetList');
+    }
 }

@@ -4,6 +4,7 @@ use Illuminate\Database\Eloquent\Model;
 use DB;
 class timesheetModel extends Model {
 	protected $table = 'tbltimesheet';
+    protected $fillable = ['staff_id'];
 	public $timestamps = false;
 	//
 	static function getAll()
@@ -14,20 +15,24 @@ class timesheetModel extends Model {
 	{
 		return DB::select('select * from tbltimesheet where timesheet_id=? limit 1',[$id]);
 	}
-	static function insertMajor($obj)
-	{
-		DB::insert('insert into tbltimesheet(major_name) values(?)',[$obj->major_name]);
-	}
+
 	static function deleteTimesheet($id)
 	{
 		DB::delete('delete from tbltimesheet where timesheet_id=?',[$id]);
 	}
-	static function updateMajor($obj)
-	{
-		DB::update('update tbltimesheet set major_name=? where timesheet_id=?',[$obj->timesheet_id]);
-	}
+
     static function getPendingTimesheet()
     {
         return DB::select('select * from tbltimesheet where status=?',[0]);
+    }
+
+    static function getByStaffId($id)
+    {
+        return DB::select('select * from tbltimesheet where staff_id=?',[$id]);
+    }
+
+    static function updateTimesheet($data)
+    {
+        return DB::update('update tbltimesheet set status=? where timesheet_id=?',[$data['status'],$data['timesheet_id']]);
     }
 }

@@ -33,7 +33,7 @@
                         <div class="col-md-6 pr-1">
                             <div class="form-group">
                                 <label>Timesheet Id</label>
-                                <select class="form-control" name="txtStaffId" required>
+                                <select class="form-control" name="txtTimesheetId" required>
                                     <option value="0">Select Timesheet</option>
                                     @foreach($timesheets as $timesheet)
                                         <option value="{{$timesheet->timesheet_id}}">{{$timesheet->timesheet_id}}</option>

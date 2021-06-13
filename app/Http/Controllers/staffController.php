@@ -7,11 +7,12 @@ use App\requestModel;
 use App\timesheetModel;
 use Illuminate\Http\Request;
 use App\staffModel;
+use App\timesheetImport;
 use File;
 use Illuminate\Support\Facades\Date;
 use Image;
 use Maatwebsite\Excel\Facades\Excel;
-use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Storage;
 class staffController extends Controller
 {
     //Sale Controller for Admin use
@@ -182,7 +183,7 @@ class staffController extends Controller
 
     public function timesheet()
     {
-        $timesheets = timesheetModel::where('staff_id', session()->get('staff_id'));
+        $timesheets = timesheetModel::getByStaffId(session()->get('staff_id'));
         return view('Staff.timesheet',['timesheets' => $timesheets]);
     }
 
@@ -191,15 +192,12 @@ class staffController extends Controller
         return view('Staff.addTimesheet');
     }
 
-    public function submitTimesheet(Request $request)
+    public function importTimesheet(Request $request)
     {
-        $file = $request->timesheet;
-        Excel::load(Input::file('timesheet'), function ($reader) {
-
-            foreach ($reader->toArray() as $row) {
-                var_dump($row);
-            }
-        });
+        $file = $request->file('timesheet');
+        Excel::import(new timesheetImport(), $file);
+        $timesheets = timesheetModel::getByStaffId(session()->get('staff_id'));
+        return view('Staff.timesheet',['timesheets' => $timesheets]);
     }
 
     public function request()
@@ -243,5 +241,12 @@ class staffController extends Controller
     public function changePassword()
     {
         return view('Staff.changePassword');
+    }
+
+    public function downloadTimesheet()
+    {
+        $file = public_path(). "/file/sample.xlsx";
+
+        return Storage::disk('public')->download('sample.xlsx');
     }
 }

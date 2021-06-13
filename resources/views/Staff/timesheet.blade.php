@@ -29,11 +29,8 @@
                                 <td>{{$timesheet->month}}</td>
                                 <td>{{$timesheet->status}}</td>
                                 <td>
-                                    <button class="add-staff" style="border-radius: 50px;background-color: #00b9fffa;">
-                                        <a href="{{route('approvedTimesheet', ['id' => $timesheet->timesheet_id])}}" style="color: white !important;">Approved</a>
-                                    </button>
                                     <button class="delete-staff" style="border-radius: 50px;background-color: #ff1800fa;">
-                                        <a href="{{route('deleteTimesheet', ['id' => $timesheet->timesheet_id])}}" style="color: white !important;">Reject</a>
+                                        <a href="{{route('deleteTimesheet', ['id' => $timesheet->timesheet_id])}}" style="color: white !important;">Delete</a>
                                     </button>
                                 </td>
                             </tr>

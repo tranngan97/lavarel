@@ -14,9 +14,11 @@ class timesheetController extends Controller
     	return view('Admin.Timesheet.timesheetList',['timesheets' => $timesheets]);
     }
 
-    public function approvedTimesheet($request)
+    public function approvedTimesheet()
     {
-        timesheetModel::where('timesheet_id',$request->id)([
+        $request= Request::capture();
+        timesheetModel::updateTimesheet([
+            'timesheet_id'=> $request->id,
             'status' => '1'
         ]);
         $notification = array(

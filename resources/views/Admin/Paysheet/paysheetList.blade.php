@@ -60,6 +60,7 @@
                   <th>Social Insurance</th>
                   <th>Health Insurance</th>
                   <th>Total Paid</th>
+                  <td></td>
                   </thead>
                   <tbody>
                   @foreach($paysheets as $paysheet)
@@ -71,7 +72,15 @@
                           <td>{{$paysheet->bank_account}}</td>
                           <td>{{$paysheet->social_insurance}}</td>
                           <td>{{$paysheet->health_insurance}}</td>
-                          <td>{{$paysheet->total_paid}}</td>
+                          <td>{{number_format($paysheet->total_paid)}}</td>
+                          <td>
+                              <button class="add-staff" style="border-radius: 50px;background-color: #00b9fffa;">
+                                  <a href="{{route('viewPaysheet', ['id' => $paysheet->paysheet_id])}}" style="color: white !important;">View</a>
+                              </button>
+                              <button class="delete-staff" style="border-radius: 50px;background-color: #ff1800fa;">
+                                  <a href="{{route('deletePaysheet', ['id' => $paysheet->paysheet_id])}}" style="color: white !important;">Delete</a>
+                              </button>
+                          </td>
                       </tr>
                   @endforeach
                   </tbody>

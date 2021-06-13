@@ -61,7 +61,8 @@ Route::middleware([checkSessionAdmin::class])->group(function(){
             Route::post('editStaff',[staffController::class, 'editStaff'])->name('editStaff');
             Route::get('deleteStaff',[staffController::class, 'deleteStaff'])->name('deleteStaff');
 			Route::post('addStaffProcess',[staffController::class, 'addStaffProcess'])->name('addStaffProcess');
-		});
+
+        });
 		Route::group(['prefix' => 'TimeSheet'],function(){
 			Route::get('/', function(){
 				return redirect()->route('timesheetList');
@@ -76,7 +77,10 @@ Route::middleware([checkSessionAdmin::class])->group(function(){
 			});
 			Route::get('paysheetList.html',[paysheetController::class, 'paysheetList'])->name('paysheetList');
             Route::get('addPaysheet.html',[paysheetController::class, 'addPaysheet'])->name('addPaysheet');
-		});
+            Route::post('addPaysheetProcess',[adminController::class, 'addPaysheetProcess'])->name('addPaysheetProcess');
+            Route::get('viewPaysheet.html',[paysheetController::class, 'viewPaysheet'])->name('viewPaysheet');
+            Route::get('deletePaysheet',[paysheetController::class, 'deletePaysheet'])->name('deletePaysheet');
+        });
 		Route::group(['prefix' => 'Request'],function(){
 			Route::get('/', function(){
 				return redirect()->route('requestList');
@@ -106,8 +110,10 @@ Route::middleware([checkSessionSale::class])->group(function(){
 		Route::get('addRequest.html',[staffController::class, 'addRequest'])->name('addRequest');
 		Route::get('deleteRequest',[staffController::class, 'deleteRequest'])->name('deleteRequest');
 		Route::post('submitRequest',[staffController::class, 'submitRequest'])->name('submitRequest');
+		Route::post('downloadTimesheet',[staffController::class, 'downloadTimesheet'])->name('downloadTimesheet');
 		Route::post('changeAvatar',[staffController::class, 'changeAvatar'])->name('changeAvatar');
-		Route::get('staffLogout',function(){
+        Route::post('importTimesheet', [staffController::class, 'importTimesheet'])->name('importTimesheet');
+        Route::get('staffLogout',function(){
 			Session::forget('staff_id');
 			Session::forget('staff_email');
 			Session::forget('staff_name');
