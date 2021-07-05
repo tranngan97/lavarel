@@ -9,8 +9,7 @@
 @endsection
 
 @section('content')
-<div class="container">
-	<div class="section"></div>
+<div class="container" style="max-width: 100% !important;">
 	<div class="card">
 		<form enctype="multipart/form-data" action="{{route('changeAvatar')}}" method="post">
 			@csrf
@@ -20,14 +19,56 @@
 	            </div>
 			</div>
 			<div class="row">
-				<div class="col s12 center-align" style="text-align: center">
-					<h4>Full name: {{$profile->staff_name}}</h4>
-					<h6>Email: {{$profile->staff_email}}</h6>
-                    <h6>DOB: {{$profile->staff_dob}}</h6>
-					<h6>Phone: {{$profile->staff_phone}}</h6>
-					<h6>Department: {{$profile->staff_department}}</h6>
-                    <h6>Gross Salary: {{$profile->staff_gross}}</h6>
-				</div>
+                <table  id="mytable" align="center" class="table table-hover" style="width: 95% !important;">
+                    <thead>
+                    <th>Staff ID</th>
+                    <th>Full name</th>
+                    <th>Email</th>
+                    <th>DOB</th>
+                    <th>Phone</th>
+                    <th>Department</th>
+                    <th>Level</th>
+                    <th>Certificate</th>
+                    <th>Gross Salary</th>
+                    <th>Social Insurance</th>
+                    <th>Health Insurance</th>
+                    <th>Bank Account</th>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>{{$profile->staff_id}}</td>
+                        <td>{{$profile->staff_name}}</td>
+                        <td>{{$profile->staff_email}}</td>
+                        <td>{{$profile->staff_dob}}</td>
+                        <td>{{$profile->staff_phone}}</td>
+                        <td>
+                            @foreach($departments as $value => $department)
+                                @if($value == $profile->staff_department)
+                                    {{$department}}
+                                @endif
+                            @endforeach
+                        </td>
+                        <td>
+                            @foreach($levels as $value => $level)
+                                @if($value == $profile->staff_level)
+                                    {{$level}}
+                                @endif
+                            @endforeach
+                        </td>
+                        <td>
+                            @foreach($certificates as $value => $certificate)
+                                @if($value == $profile->staff_cert)
+                                    {{$certificate}}
+                                @endif
+                            @endforeach
+                        </td>
+                        <td>{{number_format($profile->staff_gross)}}</td>
+                        <td>{{$profile->social_insurance}}</td>
+                        <td>{{$profile->health_insurance}}</td>
+                        <td>{{$profile->bank_account}}</td>
+                    </tr>
+                    </tbody>
+                </table>
 			</div>
             <div class="row" style="display: flex; width: 35%;margin-left: 35%;margin-top: 5%;margin-bottom: 5%;">
                 <div class="col s12 center-align">

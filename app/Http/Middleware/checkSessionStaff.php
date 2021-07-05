@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class checkSessionSale
+class checkSessionStaff
 {
     /**
      * Handle an incoming request.

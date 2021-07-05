@@ -3,15 +3,13 @@
 use Illuminate\Support\Facades\Route;
 use App\staffModel;
 use App\Http\Controllers\adminController;
-use App\Http\Controllers\AjaxController;
 use App\Http\Controllers\paysheetController;
 use App\Http\Controllers\languageController;
 use App\Http\Controllers\timesheetController;
-use App\Http\Controllers\interestController;
 use App\Http\Controllers\staffController;
 use App\Http\Controllers\requestController;
 use App\Http\Middleware\checkSessionAdmin;
-use App\Http\Middleware\checkSessionSale;
+use App\Http\Middleware\checkSessionStaff;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -64,9 +62,6 @@ Route::middleware([checkSessionAdmin::class])->group(function(){
 
         });
 		Route::group(['prefix' => 'TimeSheet'],function(){
-			Route::get('/', function(){
-				return redirect()->route('timesheetList');
-			});
 			Route::get('timesheet.html',[timesheetController::class, 'timesheetList'])->name('timesheetList');
 			Route::get('approvedTimesheet',[timesheetController::class, 'approvedTimesheet'])->name('approvedTimesheet');
 			Route::get('deleteTimesheet',[timesheetController::class, 'deleteTimesheet'])->name('deleteTimesheet');
@@ -92,7 +87,7 @@ Route::middleware([checkSessionAdmin::class])->group(function(){
 	});
 });
 
-Route::middleware([checkSessionSale::class])->group(function(){
+Route::middleware([checkSessionStaff::class])->group(function(){
 	Route::group(['prefix' => 'Staff'], function(){
 		Route::get('changeLanguage-{language}',[languageController::class, 'changeLanguage2']);
 		Route::get('/',function(){
@@ -120,7 +115,6 @@ Route::middleware([checkSessionSale::class])->group(function(){
 			Session::forget('staff_name');
 			return redirect()->route('staffLogin');
 		})->name('staffLogout');
-
 	});
 });
 

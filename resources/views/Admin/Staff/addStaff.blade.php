@@ -75,6 +75,20 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
+                                <label>Level</label>
+                                <select class="form-control" name="txtLevel" required>
+                                    <option value="0">Select Level</option>
+                                    <option value="1">Fresher</option>
+                                    <option value="2">Junior</option>
+                                    <option value="3">Middle</option>
+                                    <option value="3">Senior</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
                                 <label>Certificate</label>
                                 <select class="form-control" name="txtCert" required>
                                     <option value="0">Select Certificate</option>

@@ -1,7 +1,7 @@
 @extends('Admin.master')
 
 @section('title')
-  {{trans('lang.staff_add_manage')}}
+  Staff Details
 @endsection
 
 @section('css')
@@ -59,11 +59,37 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>{{trans('lang.department')}}</label>
-                                <select class="form-control" name="txtDepartment" required value="{{$staff->staff_department}}">
+                                <select class="form-control" name="txtDepartment" required>
                                     <option value="0">Select Department</option>
-                                    <option value="1">IT Department</option>
-                                    <option value="2">Finance Department</option>
-                                    <option value="3">Customer Department</option>
+                                    @foreach($departments as $value => $department)
+                                        <option value="{{$value}}" @if($value == $staff->staff_department) selected @endif>{{ $department }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Level</label>
+                                <select class="form-control" name="txtLevel" required>
+                                    <option value="0">Select Level</option>
+                                    @foreach($levels as $value => $level)
+                                        <option value="{{$value}}" @if($value == $staff->staff_level) selected @endif>{{ $level }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Certificate</label>
+                                <select class="form-control" name="txtCert" required>
+                                    <option value="0">Select Certificate</option>
+                                    @foreach($certificates as $value => $certificate)
+                                        <option value="{{$value}}" @if($value == $staff->staff_cert) selected @endif>{{ $certificate }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>

@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <link rel="icon" type="image/png" href="{{asset('images/logoBk.png')}}">
+    <link rel="icon" type="image/png" href="{{asset('images/hali.jpg')}}">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <title>@yield('title')</title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
@@ -35,10 +35,10 @@
         <div class="sidebar-wrapper">
             <div class="logo">
                 <a href="{{route('dashboard')}}" class="simple-text logo-mini">
-                    <img src="{{asset('images/logoBk.png')}}" height="25px" />
+                    <img src="{{asset('images/hali.jpg')}}" height="25px" />
                 </a>
                 <a href="{{route('dashboard')}}" class="simple-text logo-normal">
-                    HUST
+                    HALI
                 </a>
             </div>
             <ul class="nav">

@@ -27,7 +27,13 @@
                                 <td>{{$timesheet->timesheet_id}}</td>
                                 <td>{{$timesheet->staff_name}}</td>
                                 <td>{{$timesheet->month}}</td>
-                                <td>{{$timesheet->status}}</td>
+                                <td>
+                                    @foreach($statuses as $value => $status)
+                                        @if($value == $timesheet->status)
+                                            {{$status}}
+                                        @endif
+                                    @endforeach
+                                </td>
                                 <td>
                                     <button class="delete-staff" style="border-radius: 50px;background-color: #ff1800fa;">
                                         <a href="{{route('deleteTimesheet', ['id' => $timesheet->timesheet_id])}}" style="color: white !important;">Delete</a>

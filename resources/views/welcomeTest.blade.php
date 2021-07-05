@@ -4,8 +4,8 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="icon" type="image/png" href="{{asset('images/logoBk.png')}}">
-        <title>HUST</title>
+        <link rel="icon" type="image/png" href="{{asset('images/hali.jpg')}}">
+        <title>HALI</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
@@ -84,7 +84,7 @@
         <div class="flex-center position-ref full-height">
             <div class="content">
                 <div class="title m-b-md">
-                    <img src="{{asset('images/logoBk.png')}}" height="150px" />
+                    <img src="{{asset('images/hali.jpg')}}" height="150px" />
                 </div>
 
                 <div class="links">

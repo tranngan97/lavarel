@@ -8,9 +8,7 @@ use App\timesheetModel;
 use Illuminate\Http\Request;
 use App\staffModel;
 use App\timesheetImport;
-use File;
 use Illuminate\Support\Facades\Date;
-use Image;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
 class staffController extends Controller
@@ -42,6 +40,7 @@ class staffController extends Controller
                 'staff_phone' => $request->txtPhone,
                 'staff_avatar' => 'images/' . $filename,
                 'staff_department' => $request->txtDepartment,
+                'staff_level' => $request->txtLevel,
                 'staff_cert' => $request->txtCert,
                 'staff_dob' => $request->txtDob,
                 'social_insurance' => $request->txtSocialIns,
@@ -104,7 +103,23 @@ class staffController extends Controller
     public function profile()
     {
         $profile = staffModel::where('staff_id',session('staff_id'))->first();
-        return view('Staff.profile',['profile' => $profile]);
+        $departments = [
+            1 => 'IT Department',
+            2 => 'Finance Department',
+            3 => 'Customer Department'
+        ];
+        $levels = [
+            1 => 'Fresher',
+            2 => 'Junior',
+            3 => 'Middle',
+            4 => 'Senior'
+        ];
+        $certificates = [
+            1 => 'University',
+            2 => 'Collage',
+            3 => 'Academy'
+        ];
+        return view('Staff.profile',['profile' => $profile,'departments'=>$departments, 'levels' =>$levels, 'certificates' =>$certificates]);
     }
     public function changePasswordProcess(Request $request)
     {
@@ -141,7 +156,23 @@ class staffController extends Controller
     public function viewStaff($id)
     {
         $staff = staffModel::where('staff_id',$id)->first();
-        return view('Admin.Staff.viewStaff',['staff' => $staff]);
+        $departments = [
+            1 => 'IT Department',
+            2 => 'Finance Department',
+            3 => 'Customer Department'
+        ];
+        $levels = [
+           1 => 'Fresher',
+           2 => 'Junior',
+           3 => 'Middle',
+           4 => 'Senior'
+        ];
+        $certificates = [
+            1 => 'University',
+            2 => 'Collage',
+            3 => 'Academy'
+        ];
+        return view('Admin.Staff.viewStaff',['staff' => $staff,'departments'=>$departments, 'levels' =>$levels, 'certificates' =>$certificates]);
     }
 
     public function editStaff(Request $request)
@@ -151,6 +182,8 @@ class staffController extends Controller
             'staff_dob' => $request->txtDob,
             'staff_phone' => $request->txtPhone,
             'staff_department' => $request->txtDepartment,
+            'staff_level' => $request->txtLevel,
+            'staff_cert' => $request->txtCert,
             'staff_gross' => $request->txtGross,
             'health_insurance' => $request->txtHealthIns,
             'social_insurance' => $request->txtSocialIns,
@@ -184,7 +217,12 @@ class staffController extends Controller
     public function timesheet()
     {
         $timesheets = timesheetModel::getByStaffId(session()->get('staff_id'));
-        return view('Staff.timesheet',['timesheets' => $timesheets]);
+        $statuses = [
+            0 => 'Pending',
+            1 => 'Approved',
+            2 => 'Reject'
+        ];
+        return view('Staff.timesheet',['timesheets' => $timesheets,'statuses' => $statuses]);
     }
 
     public function addTimesheet()
@@ -246,8 +284,10 @@ class staffController extends Controller
 
     public function downloadTimesheet()
     {
-        $file = public_path(). "/file/sample.xlsx";
-
-        return Storage::disk('public')->download('sample.xlsx');
+        $file = public_path("/file/sample.xlsx");
+        $headers = array(
+            'Content-Type: application/pdf'
+        );
+        return response()->download($file, 'timesheet_sample.xlsx', $headers);
     }
 }
