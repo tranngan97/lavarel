@@ -11,6 +11,8 @@ use App\timesheetImport;
 use Illuminate\Support\Facades\Date;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
+use Image;
+
 class staffController extends Controller
 {
     //Sale Controller for Admin use
@@ -145,7 +147,7 @@ class staffController extends Controller
         if($request->hasFile('avatar')){
             $avatar = $request->file('avatar');
             $filename = time() . '.' . $avatar->getClientOriginalExtension();
-            Image::make($avatar)->resize(300,300)->save( public_path('/images/' . $filename) );
+            Image::make($avatar)->resize(300,300)->save( public_path('/images/' . $filename));
             staffModel::where('staff_id',session('staff_id'))->update([
                 'staff_avatar' => 'images/' . $filename,
             ]);
