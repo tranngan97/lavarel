@@ -25,19 +25,20 @@
                         <div class="col-md-6 pr-1">
                             <div class="form-group">
                                 <select class="form-control" name="txtMonth" required>
-                                    <option value="0">Select Month</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                    <option value="10">10</option>
-                                    <option value="11">11</option>
-                                    <option value="12">12</option>
+                                    @foreach($months as $value => $month)
+                                        <option value="{{$value}}">{{ $month }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 pr-1">
+                            <div class="form-group">
+                                <select class="form-control" name="txtDate" required>
+                                    @foreach($dates as $value => $date)
+                                        <option value="{{$value}}">{{ $date }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>

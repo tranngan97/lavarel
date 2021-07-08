@@ -82,7 +82,7 @@ Route::middleware([checkSessionAdmin::class])->group(function(){
 			});
 			Route::get('requestList.html',[requestController::class, 'requestList'])->name('requestList');
             Route::get('approvedRequest',[requestController::class, 'approvedRequest'])->name('approvedRequest');
-            Route::get('deleteRequest',[requestController::class, 'deleteRequest'])->name('deleteRequest');
+            Route::get('deleteStaffRequest',[requestController::class, 'deleteStaffRequest'])->name('deleteStaffRequest');
 		});
 	});
 });
@@ -99,14 +99,16 @@ Route::middleware([checkSessionStaff::class])->group(function(){
         Route::post('changePasswordProcess',[staffController::class, 'changePasswordProcess'])->name('changePasswordProcess');
 		Route::get('timesheet.html',[staffController::class, 'timesheet'])->name('timesheet');
         Route::get('addTimesheet.html',[staffController::class, 'addTimesheet'])->name('addTimesheet');
-        Route::post('viewStaffTimesheet.html',[timesheetController::class, 'editStaffTimesheet'])->name('editStaffTimesheet');
-        Route::get('editStaffTimesheet',[timesheetController::class, 'viewStaffTimesheet'])->name('viewStaffTimesheet');
+        Route::post('editStaffTimesheet',[timesheetController::class, 'editStaffTimesheet'])->name('editStaffTimesheet');
+        Route::get('viewStaffTimesheet.html',[timesheetController::class, 'viewStaffTimesheet'])->name('viewStaffTimesheet');
         Route::get('deleteStaffTimesheet',[timesheetController::class, 'deleteStaffTimesheet'])->name('deleteStaffTimesheet');
 		Route::get('paysheet.html',[staffController::class, 'paysheet'])->name('paysheet');
 		Route::post('submitTimesheet',[staffController::class, 'submitTimesheet'])->name('submitTimesheet');
 		Route::get('request.html',[staffController::class, 'request'])->name('request');
 		Route::get('addRequest.html',[staffController::class, 'addRequest'])->name('addRequest');
+		Route::get('viewStaffRequest.html',[staffController::class, 'viewStaffRequest'])->name('viewStaffRequest');
 		Route::get('deleteRequest',[staffController::class, 'deleteRequest'])->name('deleteRequest');
+		Route::post('editStaffRequest',[staffController::class, 'editStaffRequest'])->name('editStaffRequest');
 		Route::post('submitRequest',[staffController::class, 'submitRequest'])->name('submitRequest');
 		Route::post('downloadTimesheet',[staffController::class, 'downloadTimesheet'])->name('downloadTimesheet');
 		Route::post('changeAvatar',[staffController::class, 'changeAvatar'])->name('changeAvatar');
@@ -114,6 +116,9 @@ Route::middleware([checkSessionStaff::class])->group(function(){
         Route::get('viewPaysheetDetail.html',[paysheetController::class, 'viewStaffPaysheetDetail'])->name('viewStaffPaysheetDetail');
         Route::get('deleteStaffPaysheet',[paysheetController::class, 'deleteStaffPaysheet'])->name('deleteStaffPaysheet');
         Route::get('staffPaysheetList',[paysheetController::class, 'staffPaysheetList'])->name('staffPaysheetList');
+        Route::get('notify',[staffController::class, 'notify'])->name('notify');
+        Route::get('seenNotify',[staffController::class, 'seenNotify'])->name('seenNotify');
+        Route::get('deleteNotify',[staffController::class, 'deleteNotify'])->name('deleteNotify');
         Route::get('staffLogout',function(){
 			Session::forget('staff_id');
 			Session::forget('staff_email');

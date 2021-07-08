@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\noticeModel;
 use App\staffModel;
 use App\timesheetModel;
 use Illuminate\Http\Request;
@@ -17,7 +18,7 @@ class paysheetController extends Controller
 
     public function addPaysheet()
     {
-        $timesheets = timesheetModel::getAll();
+        $timesheets = timesheetModel::getApprovedTimesheet();
         $staffs = staffModel::getAll();
         return view('Admin.Paysheet.addPaysheet',['timesheets' => $timesheets,'staffs'=>$staffs]);
     }
@@ -35,12 +36,13 @@ class paysheetController extends Controller
 
     public function viewStaffPaysheetDetail()
     {
+        $notifiers = noticeModel::getByStaffId(session()->get('staff_id'));
         $request = Request::capture();
         $paysheet = paysheetModel::getById($request->id);
         foreach ($paysheet as $paysheet){
             $staff = staffModel::getAll();
             $timesheet = timesheetModel::getAll();
-            return view('Staff.viewPaysheet',['paysheet' => $paysheet,'staffs' => $staff, 'timesheets' => $timesheet]);
+            return view('Staff.viewPaysheet',['paysheet' => $paysheet,'staffs' => $staff, 'timesheets' => $timesheet,'notifiers' => $notifiers]);
         }
     }
 

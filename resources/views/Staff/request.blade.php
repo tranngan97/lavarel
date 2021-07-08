@@ -17,6 +17,7 @@
                         <th>ID</th>
                         <th>Type</th>
                         <th>Note</th>
+                        <th>Status</th>
                         </thead>
                         <tbody>
                         @foreach($requests as $request)
@@ -25,9 +26,19 @@
                                 <td>{{$request->type}}</td>
                                 <td>{{$request->note}}</td>
                                 <td>
+                                    @foreach($statuses as $value => $status)
+                                        @if($value == $request->status){{ $status }}@endif
+                                    @endforeach
+                                </td>
+                                <td>
+                                    <button class="delete-request" style="border-radius: 50px;background-color: #00b9fffa;">
+                                        <a href="{{route('viewStaffRequest', ['id' => $request->request_id])}}" style="color: white !important;">View</a>
+                                    </button>
+                                    @if($request->status !== 1)
                                     <button class="delete-request" style="border-radius: 50px;background-color: #ff1800fa;">
                                         <a href="{{route('deleteRequest', ['id' => $request->request_id])}}" style="color: white !important;">Delete</a>
                                     </button>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach

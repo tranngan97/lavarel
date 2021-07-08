@@ -18,8 +18,7 @@ class adminController extends Controller
         $newStaffs = staffModel::getNewStaffs();
         $pendingTimesheets = timesheetModel::getPendingTimesheet();
         $pendingRequests = requestModel::getPendingRequest();
-        return view('Admin.dashboard',
-            ['staffs' => $staffs, 'newstaffs' => $newStaffs, 'timesheets' => $pendingTimesheets, 'requests' => $pendingRequests]);
+        return view('Admin.dashboard', ['staffs' => $staffs, 'newstaffs' => $newStaffs, 'timesheets' => $pendingTimesheets, 'requests' => $pendingRequests]);
     }
     public function login()
     {
@@ -52,11 +51,25 @@ class adminController extends Controller
 
     public function addPaysheetProcess(Request $request)
     {
-        paysheetModel::insertPaysheet([
-            'timesheet_id' => $request->txtTimesheetId,
-            'staff_id' => $request->txtStaffId,
-            'month' => $request->txtMonth
-        ]);
-        return redirect()->route('paysheetList');
+        $isValid = timesheetModel::getById($request->txtTimesheetId);
+        foreach ($isValid as $valid){
+            if ($valid->staff_id == $request->txtStaffId && $valid->month === $request->txtMonth){
+                paysheetModel::insertPaysheet([
+                    'timesheet_id' => $request->txtTimesheetId,
+                    'staff_id' => $request->txtStaffId,
+                    'month' => $request->txtMonth
+                ]);
+                $notification = array(
+                    'message' => 'Paysheet added successfully for '.$valid->staff_name . ' on '.$request->txtMonth,
+                    'alert-type' => 'success'
+                );
+                return redirect()->route('paysheetList')->with($notification);
+            }
+        }
+        $notification = array(
+            'message' => 'There no such timesheet for staff '.$valid->staff_name . ' on '.$request->txtMonth,
+            'alert-type' => 'error'
+        );
+        return redirect()->route('paysheetList')->with($notification);
     }
 }

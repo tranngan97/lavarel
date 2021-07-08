@@ -11,7 +11,7 @@
                         <div class="col-md-6 pr-1">
                             <div class="form-group">
                                 <label>Staff ID</label>
-                                <input type="text" class="form-control" name="txtStaffId" placeholder="Staff ID" required value="{{$timesheet->staff_id}}">
+                                <input type="text" class="form-control" name="txtStaffId" disabled placeholder="Staff ID" required value="{{$timesheet->staff_id}}">
                             </div>
                         </div>
                     </div>
@@ -19,7 +19,7 @@
                         <div class="col-md-6 pr-1">
                             <div class="form-group">
                                 <label>Staff ID</label>
-                                <input type="text" class="form-control" name="txtStaffName" placeholder="Staff Name" required value="{{$timesheet->staff_name}}">
+                                <input type="text" class="form-control" name="txtStaffName" disabled placeholder="Staff Name" required value="{{$timesheet->staff_name}}">
                             </div>
                         </div>
                     </div>
@@ -39,9 +39,24 @@
                     <div class="row">
                         <div class="col-md-6 pr-1">
                             <div class="form-group">
+                                <label>Paid Leave</label>
+                                <input type="text" class="form-control" name="txtPaidLeave" placeholder="Staff's Paid Leaves" required value="{{$timesheet->paid_leave}}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 pr-1">
+                            <div class="form-group">
+                                <label>Unpaid Leave</label>
+                                <input type="text" class="form-control" name="txtUnpaidLeave" placeholder="Staff's Unpaid Leaves" required value="{{$timesheet->unpaid_leave}}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 pr-1">
+                            <div class="form-group">
                                 <label>Status</label>
-                                <select class="form-control" name="txtDepartment" required>
-                                    <option value="0">Select Department</option>
+                                <select class="form-control" name="txtStatus" required>
                                     @foreach($statuses as $value => $status)
                                         <option value="{{$value}}" @if($value == $timesheet->status) selected @endif>{{ $status }}</option>
                                     @endforeach
@@ -49,9 +64,9 @@
                             </div>
                         </div>
                     </div>
-
-                    <button type="submit" class="btn btn-info btn-fill">Edit</button>
-                    <button type="button" class="btn btn-danger btn-fill" style="color: white !important;">Close</button>
+                    <button type="button" class="btn btn-danger btn-fill">
+                        <a href="{{route('timesheet')}}" style="color: white !important;">Close</a>
+                    </button>
                     <div class="clearfix"></div>
                 </form>
             </div>

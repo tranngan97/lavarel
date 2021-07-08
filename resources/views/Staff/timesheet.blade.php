@@ -39,9 +39,11 @@
                                     <button class="delete-staff" style="border-radius: 50px;background-color: #00b9fffa;">
                                         <a href="{{route('viewStaffTimesheet', ['id' => $timesheet->timesheet_id])}}" style="color: white !important;">View</a>
                                     </button>
+                                    @if($timesheet->status !== 1)
                                     <button class="delete-staff" style="border-radius: 50px;background-color: #ff1800fa;">
                                         <a href="{{route('deleteStaffTimesheet', ['id' => $timesheet->timesheet_id])}}" style="color: white !important;">Delete</a>
                                     </button>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach

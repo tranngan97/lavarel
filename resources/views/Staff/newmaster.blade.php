@@ -99,20 +99,57 @@
                         </li>
                     </ul>
                     <ul class="navbar-nav ml-auto">
-                        <li class="dropdown nav-item">
-                            <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                                <i class="nc-icon flag-icon" id="flagSelect"></i>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link notifier dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="{{route('notify')}}">
+                                <i class="fa fa-bell" style="margin-right: 30%;"></i>({{count($notifiers)}})
                             </a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a href="{{route('changeLanguage',['language' => 'en'])}}" class="dropdown-item">
-                                        <i class="flag-icon flag-icon-gb"></i>  {{trans('lang.en-select')}}</a>
-                                </li>
-                                <li>
-                                    <a href="{{route('changeLanguage',['language' => 'vn'])}}" class="dropdown-item">
-                                        <i class="flag-icon flag-icon-vn"></i>  {{trans('lang.vn-select')}}</a>
-                                </li>
-                            </ul>
+                            @if(count($notifiers))
+                                <div class="dropdown-menu"  style="width: 200px;">
+                                    @foreach($notifiers as $notifier)
+                                        @if($notifier->model_type == 1)
+                                            @switch($notifier->action)
+                                                @case(1)
+                                                <?php $actionName = 'Deleted'?>
+                                                @break
+                                                @case(2)
+                                                <?php $actionName = 'Approved'?>
+                                                @break
+                                            @endswitch
+                                            <?php $modelName = 'Timesheet'?>
+                                        @endif
+                                        @if($notifier->model_type == 2)
+                                            @switch($notifier->action)
+                                                @case(1)
+                                                <?php $actionName = 'Deleted'?>
+                                                @break
+                                                @case(2)
+                                                <?php $actionName = 'Approved'?>
+                                                @break
+                                            @endswitch
+                                            <?php $modelName = 'Request'?>
+                                        @endif
+                                        <div style="margin: 5%;border-radius: 10px; @if($notifier->status !== 1) border: 3px solid #23ccef; @else border: 1px solid #23ccef; @endif">
+                                            <p style="font-size: 0.8rem;padding: 3%;">Your {{$modelName}} has been {{$actionName}} by Admin</p>
+                                            <div style="margin-bottom: 5%;width: 50%; @if($notifier->status !== 1) margin-left: 25%; @else margin-left: 40%; @endif">
+                                                @if($notifier->status !== 1)
+                                                    <button>
+                                                        <a href="{{route('seenNotify',['id' => $notifier->notice_id])}}"><i class="fa fa-check"></i></a>
+                                                    </button>
+                                                @endif
+                                                <button>
+                                                    <a href="{{route('deleteNotify',['id'=>$notifier->notice_id])}}"><i class="fa fa-trash"></i></a>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            @else
+                                <div class="dropdown-menu">
+                                    <div style="margin: 5%">
+                                        <p>Don't have any notify</p>
+                                    </div>
+                                </div>
+                            @endif
                         </li>
                         <li class="nav-item">
                             <a class="nav-link">

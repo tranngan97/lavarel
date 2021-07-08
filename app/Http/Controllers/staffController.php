@@ -7,6 +7,7 @@ use App\requestModel;
 use App\timesheetModel;
 use Illuminate\Http\Request;
 use App\staffModel;
+use App\noticeModel;
 use App\timesheetImport;
 use Illuminate\Support\Facades\Date;
 use Maatwebsite\Excel\Facades\Excel;
@@ -67,7 +68,8 @@ class staffController extends Controller
     //Sale Controller for Sale use
     public function dashboard()
     {
-        return view('Staff.dashboard');
+        $notifiers = noticeModel::getByStaffId(session()->get('staff_id'));
+        return view('Staff.dashboard',['notifiers' => $notifiers]);
     }
     public function login()
     {
@@ -104,6 +106,7 @@ class staffController extends Controller
     }
     public function profile()
     {
+        $notifiers = noticeModel::getByStaffId(session()->get('staff_id'));
         $profile = staffModel::where('staff_id',session('staff_id'))->first();
         $departments = [
             1 => 'IT Department',
@@ -121,7 +124,7 @@ class staffController extends Controller
             2 => 'Collage',
             3 => 'Academy'
         ];
-        return view('Staff.profile',['profile' => $profile,'departments'=>$departments, 'levels' =>$levels, 'certificates' =>$certificates]);
+        return view('Staff.profile',['profile' => $profile,'departments'=>$departments, 'levels' =>$levels, 'certificates' =>$certificates,'notifiers' => $notifiers]);
     }
     public function changePasswordProcess(Request $request)
     {
@@ -157,6 +160,7 @@ class staffController extends Controller
 
     public function viewStaff($id)
     {
+        $notifiers = noticeModel::getByStaffId(session()->get('staff_id'));
         $staff = staffModel::where('staff_id',$id)->first();
         $departments = [
             1 => 'IT Department',
@@ -174,7 +178,7 @@ class staffController extends Controller
             2 => 'Collage',
             3 => 'Academy'
         ];
-        return view('Admin.Staff.viewStaff',['staff' => $staff,'departments'=>$departments, 'levels' =>$levels, 'certificates' =>$certificates]);
+        return view('Admin.Staff.viewStaff',['staff' => $staff,'departments'=>$departments, 'levels' =>$levels, 'certificates' =>$certificates,'notifiers' => $notifiers]);
     }
 
     public function editStaff(Request $request)
@@ -218,18 +222,20 @@ class staffController extends Controller
 
     public function timesheet()
     {
+        $notifiers = noticeModel::getByStaffId(session()->get('staff_id'));
         $timesheets = timesheetModel::getByStaffId(session()->get('staff_id'));
         $statuses = [
             0 => 'Pending',
             1 => 'Approved',
             2 => 'Reject'
         ];
-        return view('Staff.timesheet',['timesheets' => $timesheets,'statuses' => $statuses]);
+        return view('Staff.timesheet',['timesheets' => $timesheets,'statuses' => $statuses,'notifiers' => $notifiers]);
     }
 
     public function addTimesheet()
     {
-        return view('Staff.addTimesheet');
+        $notifiers = noticeModel::getByStaffId(session()->get('staff_id'));
+        return view('Staff.addTimesheet',['notifiers' => $notifiers]);
     }
 
     public function importTimesheet(Request $request)
@@ -248,13 +254,38 @@ class staffController extends Controller
 
     public function request()
     {
+        $statuses = [
+            0 => 'Pending',
+            1 => 'Approved',
+            2 => 'Reject'
+        ];
         $requests = requestModel::getByStaffId(session()->get('staff_id'));
-        return view('Staff.request',['requests' => $requests]);
+        $notifiers = noticeModel::getByStaffId(session()->get('staff_id'));
+        return view('Staff.request',['requests' => $requests,'statuses' => $statuses,'notifiers' => $notifiers]);
     }
 
     public function addRequest(Request $request)
     {
-        return view('Staff.addRequest');
+        $notifiers = noticeModel::getByStaffId(session()->get('staff_id'));
+        $dates = [];
+        $months = [
+            1 => 'JAN',
+            2 => 'FEB',
+            3 => 'MAR',
+            4 => 'APR',
+            5 => 'MAY',
+            6 => 'JUN',
+            7 => 'JULY',
+            8 => 'AUG',
+            9 => 'SEP',
+            10 => 'OCT',
+            11 => 'NOV',
+            12 => 'DEC'
+        ];
+        for ($i = 1; $i <= 30; $i++) {
+            $dates[$i] = $i;
+        }
+        return view('Staff.addRequest',['notifiers' => $notifiers, 'dates'=>$dates, 'months' => $months]);
     }
     public function submitRequest( Request $request)
     {
@@ -263,31 +294,93 @@ class staffController extends Controller
             'type' => $request->txtType,
             'note' => $request->txtNote,
             'month' => $request->txtMonth,
+            'date' => $request->txtDate,
             'status' => 0
         ]);
-        return redirect()->route('request');
+        $notification = array(
+            'message' => 'Request submited successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('request')->with($notification);
+    }
+
+    public function editStaffRequest(Request $request)
+    {
+        requestModel::updateRequest([
+            'id' => $request->txtId,
+            'type' => $request->txtType,
+            'note' => $request->txtNote,
+            'month' => $request->txtMonth,
+            'date' => $request->txtDate,
+        ]);
+        $notification = array(
+            'message' => 'Request changed successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('request')->with($notification);
     }
 
     public function deleteRequest(Request $request)
     {
         requestModel::deleteRequest($request->id);
-        return redirect()->route('request');
+        $notification = array(
+            'message' => 'Request deleted successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('request')->with($notification);
+    }
+
+    public function viewStaffRequest(Request $request)
+    {
+        $statuses = [
+            0 => 'Pending',
+            1 => 'Approved',
+            2 => 'Reject'
+        ];
+        $notifiers = noticeModel::getByStaffId(session()->get('staff_id'));
+        $staffRequest = requestModel::getById(($request->id));
+        $types =[
+            'paid_leave' => 'Paid Leaves',
+            'unpaid_leave' => 'Unpaid Leaves'
+        ];
+        $months = [
+            1 => 'JAN',
+            2 => 'FEB',
+            3 => 'MAR',
+            4 => 'APR',
+            5 => 'MAY',
+            6 => 'JUN',
+            7 => 'JULY',
+            8 => 'AUG',
+            9 => 'SEP',
+            10 => 'OCT',
+            11 => 'NOV',
+            12 => 'DEC'
+        ];
+        $dates = [];
+        for ($i = 1; $i <= 30; $i++) {
+            $dates[$i] = $i;
+        }
+        return view('Staff.viewRequest',['requests' => $staffRequest,'statuses' => $statuses,'notifiers' => $notifiers,'types' => $types,'months' => $months,'dates' => $dates]);
     }
 
     public function paysheet()
     {
+        $notifiers = noticeModel::getByStaffId(session()->get('staff_id'));
         $paysheets = paysheetModel::getByStaffId(session()->get('staff_id'));
-        return view('Staff.paysheet',['paysheets' => $paysheets]);
+        return view('Staff.paysheet',['paysheets' => $paysheets,'notifiers' => $notifiers]);
     }
 
     public function addPaysheet()
     {
-        return view('Staff.addPaysheet');
+        $notifiers = noticeModel::getByStaffId(session()->get('staff_id'));
+        return view('Staff.addPaysheet',['notifiers' => $notifiers]);
     }
 
     public function changePassword()
     {
-        return view('Staff.changePassword');
+        $notifiers = noticeModel::getByStaffId(session()->get('staff_id'));
+        return view('Staff.changePassword',['notifiers' => $notifiers]);
     }
 
     public function downloadTimesheet()
@@ -297,5 +390,30 @@ class staffController extends Controller
             'Content-Type: application/pdf'
         );
         return response()->download($file, 'timesheet_sample.xlsx', $headers);
+    }
+
+    public function notify()
+    {
+
+    }
+
+    public function seenNotify(Request $request)
+    {
+        noticeModel::updateNotify(['id'=>$request->id]);
+        $notification = array(
+            'message' => 'Notify updated successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('dashboard')->with($notification);
+    }
+
+    public function deleteNotify(Request $request)
+    {
+        noticeModel::deleteNotify(['id'=>$request->id]);
+        $notification = array(
+            'message' => 'Notify deleted successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('dashboard')->with($notification);
     }
 }

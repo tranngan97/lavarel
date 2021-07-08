@@ -36,4 +36,9 @@ class requestModel extends Model {
             DB::update('update tblrequest set '.$column.' = '.$value.' where request_id=?',[$id]);
         }
     }
+
+    static function updateRequest($data)
+    {
+        return DB::update('update tblrequest set type=?, month=?, date =?,note=? where request_id=?',[$data['type'],$data['month'],$data['date'],$data['note'],$data['id']]);
+    }
 }

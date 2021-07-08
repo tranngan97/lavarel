@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\noticeModel;
 use Illuminate\Http\Request;
 use App\timesheetModel;
 
@@ -21,31 +22,19 @@ class timesheetController extends Controller
 
     public function staffTimesheetList()
     {
+        $notifiers = noticeModel::getByStaffId(session()->get('staff_id'));
         $statuses = [
             0 => 'Pending',
             1 => 'Approved',
             2 => 'Reject'
         ];
         $timesheets = timesheetModel::getByStaffId(session()->get('staff_id'));
-        return view('Staff.timesheet',['timesheets' => $timesheets, 'statuses' => $statuses]);
+        return view('Staff.timesheet',['timesheets' => $timesheets, 'statuses' => $statuses,'notifiers' => $notifiers]);
     }
 
-    public function editStaffTimesheet(Request $request)
-    {
-        $statuses = [
-            0 => 'Pending',
-            1 => 'Approved',
-            2 => 'Reject'
-        ];
-        $timesheets = timesheetModel::updateStaffTimesheet(
-            [
-                ''
-            ]
-        );
-        return view('Staff.timesheet',['timesheets' => $timesheets, 'statuses' => $statuses]);
-    }
     public function viewStaffTimesheet()
     {
+        $notifiers = noticeModel::getByStaffId(session()->get('staff_id'));
         $statuses = [
             0 => 'Pending',
             1 => 'Approved',
@@ -66,11 +55,12 @@ class timesheetController extends Controller
             12 => 'DEC'
         ];
         $timesheets = timesheetModel::getByStaffId(session()->get('staff_id'));
-        return view('Staff.viewStaffTimesheet',['timesheets' => $timesheets, 'statuses' => $statuses, 'months' => $months]);
+        return view('Staff.viewStaffTimesheet',['timesheets' => $timesheets, 'statuses' => $statuses, 'months' => $months,'notifiers' => $notifiers]);
     }
 
     public function deleteStaffTimesheet(Request $request)
     {
+        $notifiers = noticeModel::getByStaffId(session()->get('staff_id'));
         $statuses = [
             0 => 'Pending',
             1 => 'Approved',
@@ -78,7 +68,7 @@ class timesheetController extends Controller
         ];
         timesheetModel::deleteTimesheet($request->id);
         $timesheets = timesheetModel::getByStaffId(session()->get('staff_id'));
-        return view('Staff.timesheet',['timesheets' => $timesheets, 'statuses' => $statuses]);
+        return view('Staff.timesheet',['timesheets' => $timesheets, 'statuses' => $statuses,'notifiers' => $notifiers]);
     }
 
     public function approvedTimesheet()

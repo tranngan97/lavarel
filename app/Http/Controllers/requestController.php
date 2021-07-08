@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\requestModel;
+use App\noticeModel;
 
 class requestController extends Controller
 {
@@ -22,6 +23,7 @@ class requestController extends Controller
             'message' => trans('lang.success_approved_request'),
             'alert-type' => 'success'
         );
+        noticeModel::addNewNoticeForStaff($request->id, ['action' => 2, 'model_type' => 2, 'model_id' => $request->id, 'staff_id' => $request->staff_id]);
         return redirect()->route('requestList')->with($notification);
     }
     public function deleteRequest()
@@ -32,6 +34,19 @@ class requestController extends Controller
             'message' => trans('lang.success_delete_request'),
             'alert-type' => 'success'
         );
+        noticeModel::addNewNoticeForStaff($request->id, ['action' => 2, 'model_type' => 2, 'model_id' => $request->id, 'staff_id' => $request->staff_id]);
+        return redirect()->route('requestList')->with($notification);
+    }
+
+    public function deleteStaffRequest()
+    {
+        $request= Request::capture();
+        requestModel::deleteRequest($request->id);
+        $notification = array(
+            'message' => trans('lang.success_delete_request'),
+            'alert-type' => 'success'
+        );
+        noticeModel::addNewNoticeForStaff($request->id, ['action' => 1, 'model_type' => 2, 'model_id' => $request->id, 'staff_id' => $request->staff_id]);
         return redirect()->route('requestList')->with($notification);
     }
 }
