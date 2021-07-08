@@ -66,7 +66,13 @@
                             <td>{{$timesheet->timesheet_id}}</td>
                             <td>{{$timesheet->staff_name}}</td>
                             <td>{{$timesheet->month}}</td>
-                            <td>{{$timesheet->status}}</td>
+                            <td>
+                                @foreach($statuses as $value => $status)
+                                    @if($value == $timesheet->status)
+                                        {{$status}}
+                                    @endif
+                                @endforeach
+                            </td>
                             <td>
                                 @if($timesheet->status == 0)
                                 <button class="add-staff" style="border-radius: 50px;background-color: #00b9fffa;">
@@ -134,8 +140,6 @@
 @section('js2')
   <script type="text/javascript">
   $(document).ready(function(){
-     $( "table thead tr th:last-child" ).addClass('disabled-sorting').addClass('text-right');
-     $("table tbody tr td:last-child").addClass('text-right').addClass('sorting_1');
      $('#mytable').DataTable({
       language: {
           "decimal":        "",

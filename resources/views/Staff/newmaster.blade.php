@@ -26,6 +26,9 @@
                 display: none;
             }
         }
+        table.dataTable.no-footer {
+            border-bottom: 0;
+        }
     </style>
 </head>
 

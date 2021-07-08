@@ -65,4 +65,15 @@ class paysheetController extends Controller
         );
         return redirect()->route('paysheetList')->with($notification);
     }
+
+    public function deleteStaffPaysheet()
+    {
+        $request = Request::capture();
+        paysheetModel::deletePaysheet($request->id);
+        $notification = array(
+            'message' => trans('lang.success_delete_request'),
+            'alert-type' => 'success'
+        );
+        return redirect()->route('paysheet')->with($notification);
+    }
 }

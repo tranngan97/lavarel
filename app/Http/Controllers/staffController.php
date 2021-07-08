@@ -235,9 +235,15 @@ class staffController extends Controller
     public function importTimesheet(Request $request)
     {
         $file = $request->file('timesheet');
-        Excel::import(new timesheetImport(), $file);
-        $timesheets = timesheetModel::getByStaffId(session()->get('staff_id'));
-        return view('Staff.timesheet',['timesheets' => $timesheets]);
+        try {
+            Excel::import(new timesheetImport(), $file);
+        } catch (\Maatwebsite\Excel\Validators\ValidationException $exception){
+            $notification = array(
+                'message' => 'Timesheet file contained invalid data. Please try again',
+                'alert-type' => 'error'
+            );
+            return redirect()->route('timesheet')->with($notification);
+        }
     }
 
     public function request()

@@ -35,4 +35,10 @@ class timesheetModel extends Model {
     {
         return DB::update('update tbltimesheet set status=? where timesheet_id=?',[$data['status'],$data['timesheet_id']]);
     }
+
+    static function updateStaffTimesheet($data)
+    {
+        DB::update('update tbltimesheet set status=? where timesheet_id=?',[0]);
+        DB::update('update tbltimesheet set month=? where timesheet_id=?',[$data['month']]);
+    }
 }

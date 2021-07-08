@@ -28,9 +28,6 @@
                                     <button class="view-paysheet" style="border-radius: 50px;background-color: #00b9fffa;">
                                         <a href="{{route('viewStaffPaysheetDetail', ['id' => $paysheet->paysheet_id])}}" style="color: white !important;">View</a>
                                     </button>
-                                    <button class="delete-staff" style="border-radius: 50px;background-color: #ff1800fa;">
-                                        <a href="{{route('deletePaysheet', ['id' => $paysheet->paysheet_id])}}" style="color: white !important;">Delete</a>
-                                    </button>
                                 </td>
                             </tr>
                         @endforeach
@@ -72,4 +69,32 @@
         </div>
     </div>
 </section>
+@endsection
+@section('js2')
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#mytable').DataTable({
+                language: {
+                    "decimal":        "",
+                    "emptyTable":     "{{trans('lang.dttb_emptyTable')}}",
+                    "info":           "{{trans('lang.dttb_info')}}",
+                    "infoEmpty":      "{{trans('lang.dttb_infoEmpty')}}",
+                    "infoFiltered":   "{{trans('lang.dttb_infoFiltered')}}",
+                    "infoPostFix":    "",
+                    "thousands":      ",",
+                    "lengthMenu":     "{{trans('lang.dttb_lengthMenu')}}",
+                    "loadingRecords": "{{trans('lang.dttb_loadingRecords')}}",
+                    "processing":     "{{trans('lang.dttb_processing')}}",
+                    "search":         "{{trans('lang.dttb_search')}}",
+                    "zeroRecords":    "{{trans('lang.dttb_zeroRecords')}}",
+                    "paginate": {
+                        "first":      "{{trans('lang.dttb_first')}}",
+                        "last":       "{{trans('lang.dttb_last')}}",
+                        "next":       "{{trans('lang.dttb_next')}}",
+                        "previous":   "{{trans('lang.dttb_previous')}}"
+                    }
+                }
+            });
+        });
+    </script>
 @endsection

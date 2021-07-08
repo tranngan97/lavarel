@@ -1,11 +1,12 @@
 <?php namespace App;
 
+use App\timesheetModel;
 use Illuminate\Database\Eloquent\Model;
 use DB;
-use App\timesheetModel;
 use Maatwebsite\Excel\Concerns\ToModel;
-use Maatwebsite\Excel\Concerns\WithHeadingRow;
-class timesheetImport implements ToModel, WithHeadingRow{
+use Illuminate\Validation\Rule;
+use Maatwebsite\Excel\Concerns\WithValidation;
+class timesheetImport implements ToModel, WithValidation{
 
     public function model(array $row)
     {
@@ -17,5 +18,13 @@ class timesheetImport implements ToModel, WithHeadingRow{
             'month'    => $row['month'],
             'status' => 0
         ]);
+    }
+
+    public function rules():array
+    {
+        return [
+            '0' => Rule::in([session()->get('staff_id')]),
+            '1' => Rule::in([session()->get('staff_name')])
+        ];
     }
 }
