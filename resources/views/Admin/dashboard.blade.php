@@ -65,87 +65,104 @@
       <div class="loader-section section-left"></div>
       <div class="loader-section section-right"></div>
   </div>
-<div class="row">
-    <div class="col-md-12">
-        <div class="card staff-static">
-            <div class="card-header ">
-                <h4 class="card-title" align="center">{{trans('lang.detail_staffs')}}</h4>
-                <table>
-                    <tbody>
-                        <tr>
-                            <th>TOTAL</th>
-                            <th>New Staffs</th>
-                        </tr>
-                        <tr>
-                            <td>{{count($staffs)}}</td>
-                            <td>{{count($newstaffs)}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="card-body " id="body">
-
-            </div>
-            <div class="card-footer ">
-
-            </div>
+<div class="chart">
+    <div class="chart-container">
+        <div class="pie-chart-container">
+            <canvas id="canvas" height="150" width="400"></canvas>
         </div>
     </div>
     <div class="col-md-12">
-        <div class="card staff-static">
+        <script>
+            var month = <?php echo $months; ?>;
+            var staffs = <?php echo $staffCount; ?>;
+            var totalStaff = <?php echo $totalStaff; ?>;
+            var barChartData = {
+                labels: month,
+                datasets: [
+                    {
+                        label: 'Total Staffs',
+                        backgroundColor: "#23ef63",
+                        data: totalStaff
+                    },
+                    {
+                        label: 'New Staffs',
+                        backgroundColor: "#23CCEF",
+                        data: staffs
+                    }
+                ]
+            };
+
+            window.onload = function() {
+                var ctx = document.getElementById("canvas").getContext("2d");
+                window.myBar = new Chart(ctx, {
+                    type: 'bar',
+                    data: barChartData,
+                    options: {
+                        elements: {
+                            rectangle: {
+                                borderWidth: 2,
+                                borderSkipped: 'bottom'
+                            }
+                        },
+                        responsive: true,
+                        title: {
+                            display: true,
+                            text: 'Staffs Statistic 2021'
+                        }
+                    }
+                });
+            };
+        </script>
+    </div>
+</div>
+<div id="time_sheet_tracker" class="row" style="margin-top: 10%">
+    <div class="col-6">
+        <div class="card strpied-tabled-with-hover" id="card-master">
             <div class="card-header ">
-                <h4 class="card-title" align="center">{{trans('lang.pending_timesheets')}}</h4>
-                <table>
+                <h4 class="card-title">Pending Timesheets</h4>
+            </div>
+            <div class="card-body table-full-width table-responsive">
+                <table id="mytable" align="center" class="table table-hover">
+                    <thead>
+                    <th>ID</th>
+                    <th>Details</th>
+                    </thead>
                     <tbody>
-                    <tr>
-                        <th>ID</th>
-                        <th>Staff Id</th>
-                        <th>Month</th>
-                    </tr>
-                    <tr>
-                        @foreach($timesheets as $timesheet)
+                    @foreach($timesheets as $timesheet)
+                        <tr>
                             <td>{{$timesheet->timesheet_id}}</td>
-                            <td>{{$timesheet->staff_id}}</td>
-                            <td>{{$timesheet->month}}</td>
-                        @endforeach
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="card-body " id="body">
-
-            </div>
-            <div class="card-footer ">
-
-            </div>
-        </div>
-    </div>
-    <div class="col-md-12">
-        <div class="card staff-static">
-            <div class="card-header ">
-                <h4 class="card-title" align="center">Pending Request</h4>
-                <table>
-                    <tbody>
-                    <tr>
-                        <th>STAFF ID</th>
-                        <th>REQUEST TYPE</th>
-                        <th>NOTE</th>
-                    </tr>
-                    @foreach($requests as $request)
-                        <tr>
-                        <td>{{$request->request_id}}</td>
-                        <td>{{$request->type}}</td>
-                        <td>{{$request->note}}</td>
+                            <td>
+                                <a href="{{route('timesheetList')}}">Time Sheet on {{$timesheet->month}}/2021</a>
+                            </td>
                         </tr>
                     @endforeach
                     </tbody>
                 </table>
             </div>
-            <div class="card-body " id="body">
-
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="card strpied-tabled-with-hover" id="card-master">
+            <div class="card-header ">
+                <h4 class="card-title">Pending Request</h4>
             </div>
-            <div class="card-footer ">
-
+            <div class="card-body table-full-width table-responsive">
+                <table id="mytable" align="center" class="table table-hover">
+                    <thead>
+                    <th>ID</th>
+                    <th>Details</th>
+                    </thead>
+                    <tbody>
+                    @foreach($requests as $request)
+                        <tr>
+                            <td>{{$request->request_id}}</td>
+                            <td>
+                                <a href="{{route('requestList')}}">Request on {{$request->month}}/2021</a>
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

@@ -26,6 +26,11 @@ class timesheetModel extends Model {
         return DB::select('select * from tbltimesheet where status=?',[0]);
     }
 
+    static function getPendingTimesheetByStaff($id)
+    {
+        return DB::select('select * from tbltimesheet where status=? and staff_id =?',[0,$id]);
+    }
+
     static function getByStaffId($id)
     {
         return DB::select('select * from tbltimesheet where staff_id=?',[$id]);

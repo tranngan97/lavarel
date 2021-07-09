@@ -68,14 +68,46 @@ class staffController extends Controller
     //Sale Controller for Sale use
     public function dashboard()
     {
+        $months = ['1','2','3','4','5','6','7'];
+        $leaveTotals = [];
+        $paidLeavesTotal = [];
+        $unpaidLeavesTotal = [];
+        foreach ($months as $month) {
+            $requests = requestModel::getByStaffId(session()->get('staff_id'));
+            $paidLeaves = 0;
+            $unpaidLeaves = 0;
+            foreach ($requests as $request) {
+                if ($request->month == $month) {
+                    if ($request->type == 'paid_leave') {
+                        $paidLeaves = $paidLeaves + 1;
+                    }
+                    if ($request->type == 'unpaid_leave') {
+                        $unpaidLeaves = $unpaidLeaves + 1;
+                    }
+                }
+            }
+            $leaveTotals[] = $paidLeaves + $unpaidLeaves;
+            $paidLeavesTotal[] = $paidLeaves;
+            $unpaidLeavesTotal[] = $unpaidLeaves;
+        }
+
         $notifiers = noticeModel::getByStaffId(session()->get('staff_id'));
-        return view('Staff.dashboard',['notifiers' => $notifiers]);
+        $timesheets = timesheetModel::getPendingTimesheetByStaff(session()->get('staff_id'));
+        $paysheets = paysheetModel::getByStaffId(session()->get('staff_id'));
+        return view('Staff.dashboard', [
+            'notifiers' => $notifiers,
+            'months' => json_encode($months,JSON_NUMERIC_CHECK),
+            'leaveTotals'=>json_encode($leaveTotals,JSON_NUMERIC_CHECK),
+            'paidLeaves'=>json_encode($paidLeavesTotal,JSON_NUMERIC_CHECK),
+            'unpaidLeaves'=>json_encode($unpaidLeavesTotal,JSON_NUMERIC_CHECK),
+            'timesheets' => $timesheets,
+            'paysheets' => $paysheets
+        ]);
     }
     public function login()
     {
         if(session()->has('staff_email'))
         {
-            //
             return redirect()->route('dashboard');
         }
         return view('Staff.login');
@@ -241,15 +273,29 @@ class staffController extends Controller
     public function importTimesheet(Request $request)
     {
         $file = $request->file('timesheet');
-        try {
+        $fileData = Excel::toArray(new timesheetImport(),$file);
+        $canImport = false;
+        foreach ($fileData as $data){
+            foreach ($data as $staffData){
+                $canImport = false;
+                if ($staffData['staff_id'] === session()->get('staff_id') && $staffData['staff_name'] === session()->get('staff_name')){
+                    $canImport = true;
+                }
+            }
+        }
+        if ($canImport){
             Excel::import(new timesheetImport(), $file);
-        } catch (\Maatwebsite\Excel\Validators\ValidationException $exception){
+            $notification = array(
+                'message' => 'Timesheet file submit successfully',
+                'alert-type' => 'success'
+            );
+        } else {
             $notification = array(
                 'message' => 'Timesheet file contained invalid data. Please try again',
                 'alert-type' => 'error'
             );
-            return redirect()->route('timesheet')->with($notification);
         }
+        return redirect()->route('timesheet')->with($notification);
     }
 
     public function request()

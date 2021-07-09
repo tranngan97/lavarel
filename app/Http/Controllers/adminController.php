@@ -18,7 +18,28 @@ class adminController extends Controller
         $newStaffs = staffModel::getNewStaffs();
         $pendingTimesheets = timesheetModel::getPendingTimesheet();
         $pendingRequests = requestModel::getPendingRequest();
-        return view('Admin.dashboard', ['staffs' => $staffs, 'newstaffs' => $newStaffs, 'timesheets' => $pendingTimesheets, 'requests' => $pendingRequests]);
+        $months = ['1','2','3','4','5','6','7'];
+        $totalStaff = [];
+        $staffsCount= [];
+        foreach ($months as $month){
+            $staffCount = 0;
+            foreach (staffModel::getAll() as $staff){
+                if (date('m', strtotime($staff->created_at)) == $month){
+                    $staffCount = $staffCount + 1;
+                }
+            }
+            $staffsCount[] = $staffCount;
+            $totalStaff[] = count(staffModel::getAll());
+        }
+        return view('Admin.dashboard', [
+            'staffs' => $staffs,
+            'newstaffs' => $newStaffs,
+            'timesheets' => $pendingTimesheets,
+            'requests' => $pendingRequests,
+            'months' => json_encode($months,JSON_NUMERIC_CHECK),
+            'totalStaff' => json_encode($totalStaff,JSON_NUMERIC_CHECK),
+            'staffCount' => json_encode($staffsCount,JSON_NUMERIC_CHECK)
+        ]);
     }
     public function login()
     {

@@ -68,6 +68,9 @@
                                   <a href="{{route('approvedRequest', ['id' => $request->request_id, 'staff_id' => $request->staff_id])}}" style="color: white !important;">Approved</a>
                               </button>
                               @endif
+                              <button class="add-staff" style="border-radius: 50px;background-color: #00b9fffa;">
+                                  <a href="{{route('viewRequest', ['id' => $request->request_id, 'staff_id' => $request->staff_id])}}" style="color: white !important;">View</a>
+                              </button>
                               <button class="delete-staff" style="border-radius: 50px;background-color: #ff1800fa;">
                                   <a href="{{route('deleteStaffRequest', ['id' => $request->request_id,'staff_id' => $request->staff_id])}}" style="color: white !important;">Delete</a>
                               </button>

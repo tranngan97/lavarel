@@ -4,9 +4,8 @@ use App\timesheetModel;
 use Illuminate\Database\Eloquent\Model;
 use DB;
 use Maatwebsite\Excel\Concerns\ToModel;
-use Illuminate\Validation\Rule;
-use Maatwebsite\Excel\Concerns\WithValidation;
-class timesheetImport implements ToModel, WithValidation{
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
+class timesheetImport implements ToModel, WithHeadingRow{
 
     public function model(array $row)
     {
@@ -18,13 +17,5 @@ class timesheetImport implements ToModel, WithValidation{
             'month'    => $row['month'],
             'status' => 0
         ]);
-    }
-
-    public function rules():array
-    {
-        return [
-            '0' => Rule::in([session()->get('staff_id')]),
-            '1' => Rule::in([session()->get('staff_name')])
-        ];
     }
 }

@@ -26,10 +26,9 @@ class paysheetModel extends Model {
 	    $timesheetModel = timesheetModel::getById($data['timesheet_id']);
 	    foreach ($timesheetModel as $timesheet){
             $unpaid_leave = $timesheet->unpaid_leave;
-            $paid_leave = $timesheet->paid_leave;
         }
-	    $salary = $gross - ($gross /30) * (30 - $unpaid_leave);
-	    $totalDecrease = $salary - 500 - 500;
+	    $salary = $gross - (($gross /30) * $unpaid_leave);
+	    $totalDecrease = $salary - (($gross * 8.5)/100) - (($gross * 1.5)/100);
 		return DB::insert('insert into tblpaysheet(timesheet_id,staff_id,month,bank_account,health_insurance,social_insurance,total_paid) values(?,?,?,?,?,?,?)',[
 		    $data['timesheet_id'],
             $data['staff_id'],

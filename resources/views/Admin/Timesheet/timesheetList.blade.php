@@ -76,11 +76,14 @@
                             <td>
                                 @if($timesheet->status == 0)
                                 <button class="add-staff" style="border-radius: 50px;background-color: #00b9fffa;">
-                                    <a href="{{route('approvedTimesheet', ['id' => $timesheet->timesheet_id])}}" style="color: white !important;">Approved</a>
+                                    <a href="{{route('approvedTimesheet', ['id' => $timesheet->timesheet_id,'staff_id' => $timesheet->staff_id])}}" style="color: white !important;">Approved</a>
                                 </button>
                                 @endif
+                                <button class="add-staff" style="border-radius: 50px;background-color: #00b9fffa;">
+                                    <a href="{{route('viewTimeSheet', ['id' => $timesheet->timesheet_id])}}" style="color: white !important;">View</a>
+                                </button>
                                 <button class="delete-staff" style="border-radius: 50px;background-color: #ff1800fa;">
-                                    <a href="{{route('deleteTimesheet', ['id' => $timesheet->timesheet_id])}}" style="color: white !important;">Delete</a>
+                                    <a href="{{route('deleteTimesheet', ['id' => $timesheet->timesheet_id,'staff_id' => $timesheet->staff_id])}}" style="color: white !important;">Delete</a>
                                 </button>
                             </td>
                         </tr>

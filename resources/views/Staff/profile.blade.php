@@ -72,10 +72,10 @@
 			</div>
             <div class="row" style="display: flex; width: 35%;margin-left: 35%;margin-top: 5%;margin-bottom: 5%;">
                 <div class="col s12 center-align">
-                    <button class="btn waves-effect waves-light waves-cyan">Change avatar</button>
+                    <button class="btn waves-effect waves-light waves-cyan" style="background-color: #2CA8FF;color: white">Change avatar</button>
                 </div>
                 <div class="col s12 center-align">
-                    <button class="btn waves-effect waves-light waves-cyan">
+                    <button class="btn waves-effect waves-light waves-cyan" style="background-color: #2CA8FF">
                         <a href="{{route('changePassword')}}" style="color: white !important;">Change Password</a>
                     </button>
                 </div>
